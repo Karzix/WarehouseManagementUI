@@ -1,4 +1,5 @@
-export class ProductRemaining {
+export class ProductRemainingDtos {
+    id:string|undefined;
     Quantity:number|undefined;
     ProductId :string|undefined;
     Product :object|undefined;
