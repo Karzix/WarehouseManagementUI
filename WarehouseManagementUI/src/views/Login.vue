@@ -1,27 +1,29 @@
 <template>
-  <form>
-    <div class="from-item">
-    <label for="email">Email</label>
-    <input type="text" id="email">
-    </div>
-    <div  class="from-item">
-    <label for="password">Password</label>
-    <input type="text" name="" id="password">
-    </div>
-    <input type="submit" name="" id="submitFrom" value="Login" @click="submitForm()">
-  </form>
+  <el-form label-width="120px" class="demo-dynamic">
+    <el-form-item prop="email" label="Email">
+      <el-input v-model="user.email" />
+    </el-form-item>
+    <el-form-item prop="password" label="Password">
+      <el-input v-model="user.password" />
+    </el-form-item>
+    <el-form-item>
+      <el-button type="primary" @click="submitForm()">Submit</el-button>
+    </el-form-item>
+  </el-form>
 </template>
 
 <script lang="ts" setup>
 import { reactive, ref } from "vue";
 import type { FormInstance } from "element-plus";
 
-const email = ref('cc')
+const user = ref({
+  password: "",
+  email: "",
+});
 
-function submitForm() {
-    alert("có sài được đâu mà bấm")
-}
+const submitForm = () => {
+  alert(
+    "Email: " + user.value.email + "\n" + "Password: " + user.value.password
+  );
+};
 </script>
-<style>
-
-</style>
