@@ -5,7 +5,7 @@ import Layout from './components/Layout/Layout1.vue'
 </script>
  
 <template>
-<Layout></Layout>
+<RouterView></RouterView>
 </template>
 
 <style scoped>
