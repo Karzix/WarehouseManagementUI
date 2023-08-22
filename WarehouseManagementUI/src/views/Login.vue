@@ -1,10 +1,10 @@
 <template>
   <el-form label-width="120px" class="demo-dynamic">
     <el-form-item prop="email" label="Email">
-      <el-input v-model="user.email" />
+      <el-input v-model="state.UserName" type="email"/>
     </el-form-item>
     <el-form-item prop="password" label="Password">
-      <el-input v-model="user.password" />
+      <el-input v-model="state.Password" type="password"/>
     </el-form-item>
     <el-form-item>
       <el-button type="primary" @click="submitForm()">Submit</el-button>
@@ -13,17 +13,30 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive, ref } from "vue";
-import type { FormInstance } from "element-plus";
+import { reactive, ref } from 'vue';
 
-const user = ref({
-  password: "",
-  email: "",
+import { LoginViewModel } from '../Models/LoginViewModel'
+
+
+import { handleLogin } from "../Service/LoginService"
+import { useToast } from "vue-toastification";
+
+const _toast = useToast();
+const state = reactive<LoginViewModel>({
+  UserName: '',
+  Password: '',
+  Email: '',
+  Id: '1',
+  Role: 'user'
 });
-
-const submitForm = () => {
-  alert(
-    "Email: " + user.value.email + "\n" + "Password: " + user.value.password
-  );
-};
+const submitForm = async () => {
+  console.log(state);
+  state.Email = state.UserName
+  const loginResult = await handleLogin(state);
+  console.log("logresult:" + loginResult);
+  if (loginResult.isSuccess)
+    window.location.href = '/';
+  else
+    _toast.success(loginResult.message);
+}
 </script>
