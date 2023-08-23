@@ -10,15 +10,16 @@
       <el-button type="primary" @click="submitForm()">Submit</el-button>
     </el-form-item>
   </el-form>
+  <router-link to="/Register" class="link">Register</router-link>
 </template>
 
 <script lang="ts" setup>
 import { reactive, ref } from 'vue';
 
-import { LoginViewModel } from '../Models/LoginViewModel'
+import { LoginViewModel } from '../../Models/LoginViewModel'
 
 
-import { handleLogin } from "../Service/LoginService"
+import { handleLogin } from "../../Service/LoginService"
 import { useToast } from "vue-toastification";
 
 const _toast = useToast();
@@ -26,12 +27,11 @@ const state = reactive<LoginViewModel>({
   UserName: '',
   Password: '',
   Email: '',
-  Id: '1',
-  Role: 'user'
+  Role: null
 });
 const submitForm = async () => {
   console.log(state);
-  state.Email = state.UserName
+  // state.Email = state.UserName
   const loginResult = await handleLogin(state);
   console.log("logresult:" + loginResult);
   if (loginResult.isSuccess)

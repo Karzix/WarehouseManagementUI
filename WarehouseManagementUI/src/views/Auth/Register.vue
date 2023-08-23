@@ -1,0 +1,49 @@
+<template>
+    <el-form label-width="120px" class="demo-dynamic">
+      <el-form-item prop="email" label="Email">
+        <el-input v-model="Register.UserName" type="email"/>
+      </el-form-item>
+      <el-form-item prop="password" label="Password">
+        <el-input v-model="Register.Password" type="password"/>
+      </el-form-item>
+      <el-form-item prop="passwordConfirm" label="Password Confirm">
+        <el-input v-model="Register.passwordConfirm" type="password"/>
+      </el-form-item>
+      <el-form-item>
+        <el-button type="primary" @click="submitForm()">Submit</el-button>
+      </el-form-item>
+    </el-form>
+  </template>
+  
+  <script lang="ts" setup>
+  import { reactive, ref } from 'vue';
+  
+  import { LoginViewModel } from '../../Models/LoginViewModel'
+  
+  
+  import { handleLogin } from "../../Service/RegisterService"
+  import { useToast } from "vue-toastification";
+  
+  const _toast = useToast();
+  const Register = ref({
+    UserName: '',
+    Password: '',
+    passwordConfirm: ''
+  })
+  const state = reactive<LoginViewModel>({
+    UserName: '',
+    Password: '',
+    Email: '',
+    Role: null
+  });
+  const submitForm = async () => {
+    if(Register.value.Password === Register.value.passwordConfirm){
+        state.UserName = Register.value.UserName;
+        state.Email = Register.value.UserName;
+        state.Password = Register.value.Password;
+        const RegisterResult = await handleLogin(state);
+        console.log("logresult:" + RegisterResult);
+    }
+  }
+  </script>
+  
