@@ -9,10 +9,22 @@
     <el-form-item>
       <el-button type="primary" @click="submitForm()">Submit</el-button>
     </el-form-item>
+    <el-form-item>
+        <el-button type="primary"><router-link to="/Register" class="link link-auth">Register</router-link></el-button>
+      </el-form-item>
   </el-form>
-  <router-link to="/Register" class="link">Register</router-link>
+  
 </template>
-
+<style>
+.demo-dynamic{
+  margin-top: calc(40vh - 66px);
+}
+.link-auth{
+  width: 100%;
+  border: none;
+  color: white;
+}
+</style>
 <script lang="ts" setup>
 import { reactive, ref } from 'vue';
 

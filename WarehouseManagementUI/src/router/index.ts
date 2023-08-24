@@ -3,6 +3,7 @@ import HomeView from '../views/HomeView.vue'
 import Layout from '../components/Layout/Layout1.vue'
 import LoginView from '../views/Auth/Login.vue'
 import RegisterView from '../views/Auth/Register.vue'
+import Layout2 from '../components/Layout/Layout2.vue'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -20,7 +21,7 @@ const router = createRouter({
     },
     {
       path: '/Login',
-      component: Layout,
+      component: Layout2,
       meta: { requiresAuth: true }, 
       children: [
         {
@@ -32,7 +33,7 @@ const router = createRouter({
     },
     {
       path: '/Register',
-      component: Layout,
+      component: Layout2,
       meta: { requiresAuth: true }, 
       children: [
         {

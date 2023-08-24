@@ -12,9 +12,21 @@
       <el-form-item>
         <el-button type="primary" @click="submitForm()">Submit</el-button>
       </el-form-item>
+      <el-form-item>
+        <el-button type="primary"><router-link to="/Login" class="link link-auth">Login</router-link></el-button>
+      </el-form-item>
     </el-form>
+    
   </template>
-  
+<style>
+.demo-dynamic{
+  margin-top: calc(40vh - 66px);
+}
+.link-auth{
+  border: none;
+  color: white;
+}
+</style>
   <script lang="ts" setup>
   import { reactive, ref } from 'vue';
   
