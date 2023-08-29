@@ -38,8 +38,8 @@ const _toast = useToast();
 const state = reactive<LoginViewModel>({
   UserName: '',
   Password: '',
-  Email: '',
-  Role: null
+  Email: '1',
+  Role: '1'
 });
 const submitForm = async () => {
   console.log(state);

@@ -31,12 +31,8 @@
   import { reactive, ref } from 'vue';
   
   import { LoginViewModel } from '../../Models/LoginViewModel'
-  
-  
-  import { handleLogin } from "../../Service/RegisterService"
-  import { useToast } from "vue-toastification";
-  
-  const _toast = useToast();
+  import { register } from "../../Service/RegisterService"
+
   const Register = ref({
     UserName: '',
     Password: '',
@@ -49,11 +45,12 @@
     Role: null
   });
   const submitForm = async () => {
-    if(Register.value.Password === Register.value.passwordConfirm){
+
+    if(Register.value.Password === Register.value.passwordConfirm && Register.value.UserName != null){
         state.UserName = Register.value.UserName;
         state.Email = Register.value.UserName;
         state.Password = Register.value.Password;
-        const RegisterResult = await handleLogin(state);
+        const RegisterResult = await register(state);
         console.log("logresult:" + RegisterResult);
     }
   }

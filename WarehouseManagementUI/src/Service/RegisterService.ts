@@ -4,11 +4,10 @@ import { AppResponse } from "../Models/AppResponse";
 
 import { axiosInstance } from "./axiosConfig";
 
-import Cookies from "js-cookie";
 
-const loginUrl = 'Account/register';
+const Url = 'Account/register';
 
-export const handleLogin = async (
+export const register = async (
   model: LoginViewModel
 ): Promise<AppResponse<string>> => {
   let resust: AppResponse<string> = {
@@ -18,7 +17,7 @@ export const handleLogin = async (
   };
 
   try {
-    const postResult = await axiosInstance.post(loginUrl, model);
+    const postResult = await axiosInstance.post(Url, model);
     console.log(postResult.data);
     const responseObject = postResult.data;
     resust = responseObject;

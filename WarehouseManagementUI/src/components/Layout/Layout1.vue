@@ -4,6 +4,7 @@
         <el-aside width="200px">
           <router-link to="/" class="link">Home</router-link>
           <router-link to="/Login" class="link">Login</router-link>
+          <router-link to="/User" class="link">User</router-link>
         </el-aside>
         <el-container>
           <el-header>Header</el-header>
