@@ -4,7 +4,8 @@ import Layout from '../components/Layout/Layout1.vue'
 import LoginView from '../views/Auth/Login.vue'
 import RegisterView from '../views/Auth/Register.vue'
 import Layout2 from '../components/Layout/Layout2.vue'
-import UserView from '../views/User.vue'
+import UserView from '../views/User/User.vue'
+import UserDetailsVue from '../views/User/UserDetails.vue'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -55,7 +56,11 @@ const router = createRouter({
         },
         // Other routes using default layout...
       ],
-    }
+    },
+    {
+      path: "/User/:Id",
+      component: UserDetailsVue,
+    },
   ]
 })
 
