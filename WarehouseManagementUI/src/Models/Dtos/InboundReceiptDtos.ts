@@ -1,7 +1,7 @@
 export class InboundReceiptDtos {
     id: string|undefined;
     SupplierId:string|undefined;
-    Supplier :object|undefined;
+    Supplier :string|undefined;
     WarehouseId :string|undefined;
-    Warehouse:object|undefined;
+    Warehouse:string|undefined;
 }

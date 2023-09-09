@@ -5,6 +5,7 @@ import LoginView from '../views/LoginView.vue'
 import RegisterView from '../views/RegisterView.vue'
 import Layout1 from '../components/Layout/Layout1.vue'
 import Layout1Vue from '../components/Layout/Layout1.vue'
+import User from '../views/User.vue'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -40,6 +41,18 @@ const router = createRouter({
         {
           path: '',
           component: RegisterView,
+        },
+        // Other routes using default layout...
+      ],
+    },
+    {
+      path: '/GetAllUser',
+      component: Layout1,
+      meta: { requiresAuth: true }, 
+      children: [
+        {
+          path: '',
+          component: User,
         },
         // Other routes using default layout...
       ],

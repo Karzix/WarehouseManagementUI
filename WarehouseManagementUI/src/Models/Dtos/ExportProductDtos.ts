@@ -2,7 +2,7 @@ export class ExportProductDtos {
     id:string|undefined;
     Quantity:number | undefined;
     SupplierProductId:string|undefined;
-    SupplierProduct:object|undefined;
+    SupplierProductName:string|undefined;
     OutboundReceiptId :string|undefined;
-    OutboundReceipt:object|undefined;
+    OutboundReceipt:string|undefined;
 }

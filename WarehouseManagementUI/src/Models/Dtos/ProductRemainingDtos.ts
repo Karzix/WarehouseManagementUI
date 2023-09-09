@@ -2,7 +2,7 @@ export class ProductRemainingDtos {
     id:string|undefined;
     Quantity:number|undefined;
     ProductId :string|undefined;
-    Product :object|undefined;
+    Product :string|undefined;
     WarehouseId :string|undefined;
-    Warehouse:object|undefined;
+    Warehouse:string|undefined;
 }
