@@ -1,6 +1,6 @@
 export class ProductDtos {
     id:string|undefined;
-    Name:string | undefined;
-    Description:string | undefined;
-    Quantity :number|undefined;
+    name:string | undefined;
+    description:string | undefined;
+    quantity :number|undefined;
 }

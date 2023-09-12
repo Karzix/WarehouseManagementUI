@@ -6,6 +6,7 @@ import RegisterView from '../views/Auth/Register.vue'
 import Layout2 from '../components/Layout/Layout2.vue'
 import UserView from '../views/User/User.vue'
 import UserDetailsVue from '../views/User/UserDetails.vue'
+import ProductVue from '../views/Product/Product.vue'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -60,6 +61,10 @@ const router = createRouter({
     {
       path: "/User/:Id",
       component: UserDetailsVue,
+    },
+    {
+      path: "/Product",
+      component: ProductVue,
     },
   ]
 })

@@ -1,17 +1,17 @@
 <template>
   <el-form label-width="120px" class="demo-dynamic">
     <el-form-item prop="email" label="Email">
-      <el-input v-model="state.UserName" type="email"/>
+      <el-input v-model="state.userName" type="email"/>
     </el-form-item>
     <el-form-item prop="password" label="Password">
-      <el-input v-model="state.Password" type="password"/>
+      <el-input v-model="state.password" type="password"/>
     </el-form-item>
     <el-form-item>
       <el-button type="primary" @click="submitForm()">Submit</el-button>
     </el-form-item>
     <el-form-item>
         <el-button type="primary"><router-link to="/Register" class="link link-auth">Register</router-link></el-button>
-      </el-form-item>
+    </el-form-item>
   </el-form>
   
 </template>
@@ -36,10 +36,10 @@ import { useToast } from "vue-toastification";
 
 const _toast = useToast();
 const state = reactive<LoginViewModel>({
-  UserName: '',
-  Password: '',
-  Email: '1',
-  Role: '1'
+  userName: '',
+  password: '',
+  email: '1',
+  role: '1'
 });
 const submitForm = async () => {
   console.log(state);
@@ -51,4 +51,5 @@ const submitForm = async () => {
   else
     _toast.success(loginResult.message);
 }
+
 </script>

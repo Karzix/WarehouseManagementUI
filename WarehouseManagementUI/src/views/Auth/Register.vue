@@ -39,17 +39,17 @@
     passwordConfirm: ''
   })
   const state = reactive<LoginViewModel>({
-    UserName: '',
-    Password: '',
-    Email: '',
-    Role: null
+      userName: "",
+      password: "",
+      email: "",
+      role: ""
   });
   const submitForm = async () => {
 
     if(Register.value.Password === Register.value.passwordConfirm && Register.value.UserName != null){
-        state.UserName = Register.value.UserName;
-        state.Email = Register.value.UserName;
-        state.Password = Register.value.Password;
+        state.userName = Register.value.UserName;
+        state.email = Register.value.UserName;
+        state.password = Register.value.Password;
         const RegisterResult = await register(state);
         console.log("logresult:" + RegisterResult);
     }

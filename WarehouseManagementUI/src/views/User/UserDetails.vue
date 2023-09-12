@@ -2,12 +2,13 @@
 <h1>User details</h1>
 <p>User Name: {{ user.userName }}</p>
 <p>Email: {{ user.email }}</p>
-<p>Id: {{ user.id }}</p>
-<p>emailConfirmed: {{ user.emailConfirmed }}</p>
+<p>Role: {{ user.role }}</p>
+<p>Password: {{ user.password }}</p>
 </template>
 <script setup lang="ts">
 import type { AppResponse } from '@/Models/AppResponse';
 import { User } from '@/Models/IdentityUser';
+import type { LoginViewModel } from '@/Models/LoginViewModel';
 import router from '@/router';
 import axios from 'axios';
 import { fa } from 'element-plus/lib/locale/index.js';
@@ -15,22 +16,11 @@ import { ref, reactive } from 'vue';
 import { useRoute } from 'vue-router';
 
 
-let user = ref<User>({
-      id : "",
+let user = ref<LoginViewModel>({
       userName: "",
-      normalizedUserName: "",
+      password: "",
       email: "",
-      normalizedEmail: "",
-      emailConfirmed: true,
-      passwordHash: "",
-      securityStamp: "",
-      concurrencyStamp: "",
-      phoneNumber: "",
-      phoneNumberConfirmed: false,
-      twoFactorEnabled: false,
-      lockoutEnd: "",
-      lockoutEnabled: false,
-      accessFailedCount: ""
+      role: ""
   });
 
 async function getUser(userId: any) {
