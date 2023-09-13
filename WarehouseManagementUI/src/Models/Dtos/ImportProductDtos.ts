@@ -4,6 +4,6 @@ export class ImportProductDtos {
     SupplierProductId:string|undefined;
     SupplierProductName:string|undefined;
     InboundReceiptId :string|undefined;
-    InboundReceipt:string|undefined;
+    // InboundReceipt:string|undefined;
     
 }

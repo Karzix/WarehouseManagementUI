@@ -4,5 +4,5 @@ export class ExportProductDtos {
     SupplierProductId:string|undefined;
     SupplierProductName:string|undefined;
     OutboundReceiptId :string|undefined;
-    OutboundReceipt:string|undefined;
+    // OutboundReceipt:string|undefined;
 }
