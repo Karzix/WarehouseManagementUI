@@ -1,4 +1,5 @@
 <template>
+
   <div class="demo-input-size User-searchFrom" >
     <el-input
       v-model="Sname"
@@ -9,10 +10,12 @@
     />
     <el-button type="primary" @click="search()" class="User-searchButton">Search</el-button>
   </div>
-  
+
+
   <el-table :data="data" style="width: 100%">
+    <el-table-column prop="id" label="Id" width="280px" />
     <el-table-column prop="userName" label="Name" width="280px" />
-    <el-table-column prop="email" label="State" width="280px" />
+    <el-table-column prop="email" label="Email" width="280px" />
     <el-table-column fixed="right" label="Operations" width="100px">
       <template #default="scope">
         <router-link :to="`/User/${scope.row.id}`">
@@ -24,7 +27,7 @@
   </el-table>
   <div style="display: flex;">
     <el-button v-if="Number(Search.PageIndex) > 1" @click="previousPage">{{Number(Search.PageIndex) - 1}}</el-button>
-    <el-button>{{Search.PageIndex}}</el-button>
+    <el-button type="primary">{{Search.PageIndex}}</el-button>
     <el-button v-if="data.length% Search.PageSize! == 0 " @click="nextPage">{{Number(Search.PageIndex) + 1}}</el-button>
   </div>
 </template>
@@ -44,13 +47,12 @@ let Search: SearchRequest = reactive({
   Filters: [] as Filter[],
   SortByInfo: undefined,
   PageIndex: 1,
-  PageSize: 2,
+  PageSize: 2 ,
 });
 
 const search =  () => {
-  // let listfiler: Filter[] = [];
   var name: string = Sname.value;
-
+  Search.Filters = [];
 
   const filter: Filter = {
     FieldName: "",
@@ -61,10 +63,11 @@ const search =  () => {
     filter.FieldName = "Email"
   }
   Search.Filters?.push(filter);
-  console.log(Search);
   var respone =  axios.post('https://localhost:7234/api/UserManagement/search', Search)
   .then(data2 =>{
     console.log(data2)
+    console.log(data2.data)
+
     data.value = data2.data.data.data;
     console.log(data.value)
   })
@@ -83,14 +86,6 @@ fetchData(Search).then((result) => {
   console.log(data);
 });
 
-// function showDetails(userId:string) {
-//   // Gọi api tìm kiếm người dùng
-//   // axios.get(`https://localhost:7234/api/UserManagement/${userId}`)
-//   //   .then((user) => {
-//       // Chuyển hướng người dùng đến trang thông tin chi tiết
-//       window.location.href = `/User/${userId}`;
-//     // });
-// }
 </script>
 <style>
 .User-searchFrom{
