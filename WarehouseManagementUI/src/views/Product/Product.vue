@@ -1,4 +1,5 @@
 <template>
+<router-link to="/Product/Create">Create prodct</router-link>
 <el-table :data="data" style="width: 100%">
     <el-table-column prop="id" label="id" width="280px" />
     <el-table-column prop="name" label="Name" width="280px" />
@@ -15,21 +16,7 @@
       </template>
     </el-table-column> -->
 </el-table>
-<el-form label-width="120px" class="demo-dynamic">
-      <el-form-item  label="Name">
-        <el-input v-model="Product.name" type="text"/>
-      </el-form-item>
-      <el-form-item prop="Description" label="Description">
-        <el-input v-model="Product.description" type="text"/>
-      </el-form-item>
-      <el-form-item prop="Quantity" label="Quantity">
-        <el-input v-model="Product.quantity" type="number"/>
-      </el-form-item>
-      <el-form-item>
-        <el-button type="primary" @click="submitForm()">Submit</el-button>
-      </el-form-item>
-      
-    </el-form>
+
     
 </template>
 <script setup lang="ts">

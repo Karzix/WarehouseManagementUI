@@ -3,4 +3,5 @@ export class LoginViewModel {
     password: string| undefined;
     email: string|undefined;
     role: string|unknown;
+    id: string|undefined
 }

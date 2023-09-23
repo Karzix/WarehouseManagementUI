@@ -6,26 +6,24 @@
 <p>Password: {{ user.password }}</p>
 </template>
 <script setup lang="ts">
-import type { AppResponse } from '@/Models/AppResponse';
-import { User } from '@/Models/IdentityUser';
 import type { LoginViewModel } from '@/Models/LoginViewModel';
-import router from '@/router';
 import axios from 'axios';
-import { fa } from 'element-plus/lib/locale/index.js';
 import { ref, reactive } from 'vue';
 import { useRoute } from 'vue-router';
+import { axiosInstance } from "../../Service/axiosConfig";
 
 
 let user = ref<LoginViewModel>({
       userName: "",
       password: "",
       email: "",
-      role: ""
+      role: "",
+      id: "53a81d6c-0703-4f63-a600-e413f7dc9c69"
   });
 
 async function getUser(userId: any) {
 
-      await axios.get(`https://localhost:7234/api/UserManagement/${userId}`)
+      await axiosInstance.get(`/UserManagement/${userId}`)
         .then((User) => {
           // Lưu dữ liệu của người dùng vào biến cục bộ
           user.value = User.data.data;
