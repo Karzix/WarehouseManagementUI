@@ -8,6 +8,9 @@ import UserView from '../views/User/User.vue'
 import UserDetailsVue from '../views/User/UserDetails.vue'
 import ProductVue from '../views/Product/Product.vue'
 import CreateProduct from '../views/Product/Create.vue'
+import Supplier from '../views/Supplier/Supplier.vue'
+import CreateSupplier from '../views/Supplier/Create.vue'
+import SupplierProductDetail from '../views/Supplier/Detail.vue'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -76,6 +79,25 @@ const router = createRouter({
           path: 'Create',
           component: CreateProduct,
         }
+      ],
+    },
+    {
+      path: '/Supplier',
+      component: Layout,
+      meta: { requiresAuth: true }, 
+      children: [
+        {
+          path: '',
+          component: Supplier,
+        },
+        {
+          path: 'Create',
+          component: CreateSupplier,
+        },
+        {
+          path: ":Id",
+          component: SupplierProductDetail,
+        },
       ],
     },
   ]

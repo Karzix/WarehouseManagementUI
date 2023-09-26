@@ -6,25 +6,43 @@
           <router-link to="/Login" class="link">Login</router-link>
           <router-link to="/User" class="link">User</router-link> -->
         <el-scrollbar>
-          <el-menu :default-openeds="['1', '1']">
+          <el-menu :default-openeds="['1', '2']">
             <el-menu-item index="1-3" class="layout1-li">
               <router-link to="/" class="Home">Home</router-link>
             </el-menu-item>
             <el-sub-menu index="1">
               <template #title>
-                <el-icon><message /></el-icon>Product
+                <message />Product
               </template>
-              <el-menu-item index="1-3" class="layout1-li">
+              <el-menu-item index="1-1" class="layout1-li">
                 <router-link to="/Product/Create" class="layout1-link"
                   >Create Product</router-link
                 >
               </el-menu-item>
-              <el-menu-item index="1-3" class="layout1-li">
+              <el-menu-item index="1-2" class="layout1-li">
                 <router-link to="/Product" class="layout1-link"
                   >Product Management</router-link
                 >
               </el-menu-item>
             </el-sub-menu>
+            <el-sub-menu index="2">
+              <template #title>
+                <message />Supplier
+              </template>
+              <el-menu-item index="1-1" class="layout1-li">
+                <router-link to="/Supplier/Create" class="layout1-link"
+                  >Create Supplier</router-link
+                >
+              </el-menu-item>
+              <el-menu-item index="1-2" class="layout1-li">
+                <router-link to="/Supplier" class="layout1-link"
+                  >Supplier Management</router-link
+                >
+              </el-menu-item>
+            </el-sub-menu>
+            <!-- <el-menu-item index="1-3" class="layout1-li">
+              <router-link to="/login" class=""><el-icon><UserFilled /></el-icon></router-link>
+            </el-menu-item> -->
           </el-menu>
         </el-scrollbar>
       </el-aside>
