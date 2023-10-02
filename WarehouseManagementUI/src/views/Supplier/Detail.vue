@@ -15,31 +15,29 @@ import type { ProductDtos } from "@/Models/Dtos/ProductDtos";
 import { SearchRequest } from "@/Models/Request/ShearchRequest";
 import type { Filter } from "@/Models/Request/Filter";
 import { SupplierDtos } from "@/Models/Dtos/SupplierDtos";
-import { da } from "element-plus/es/locale/index.mjs";
+import { getSupplier } from "../../Service/Supplier/GetById";
 
 let Search: SearchRequest = reactive({
   Filters: [] as Filter[],
   SortByInfo: undefined,
   PageIndex: 1,
-  PageSize: 2 ,
+  PageSize: 2,
 });
 let supplier = ref<SupplierDtos>({
-  id: "",
+  id: null,
   name: "",
-  email: ""
-})
-let data = ref([] as ProductDtos[])
+  email: "",
+});
+let data = ref([] as ProductDtos[]);
 
-async function getSupplier(Id: any) {
-  await axiosInstance.get(`/Supplier/${Id}`,)
-  .then(result =>{
-    console.log(result)
-    supplier.value = result.data.data
-  })
-}
-getSupplier(useRoute().params.Id);
+getSupplier(useRoute().params.Id).then((result) => {
+  //@ts-ignore
+  // thật ra là nó chạy đúng r nhưng nó hiện warning nhìn ngứa mắt quá
+  supplier.value = result.data;
+});
 
-const search =  () => {
+//cái này dùng để tìm sản phẩm mà cái thằng ncc nó cung cấp
+function search() {
   Search.Filters = [];
 
   const filter: Filter = {
@@ -48,11 +46,12 @@ const search =  () => {
     Operation: "search",
   };
   Search.Filters?.push(filter);
-  var respone =  axiosInstance.post('SupplierProduct/SearchProduct', Search)
-  .then(result =>{
-    console.log(result.data)
-    data.value = result.data.data.data
-  })
-};
+  var respone = axiosInstance
+    .post("SupplierProduct/SearchProduct", Search)
+    .then((result) => {
+      console.log(result.data);
+      data.value = result.data.data.data;
+    });
+}
 search();
 </script>

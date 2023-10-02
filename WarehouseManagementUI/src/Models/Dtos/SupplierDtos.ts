@@ -1,5 +1,5 @@
 export class SupplierDtos {
-    id:string|undefined;
+    id:string|unknown;
     name:string|undefined;
     email:string|undefined;
 }

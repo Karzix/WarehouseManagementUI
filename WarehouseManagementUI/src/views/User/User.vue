@@ -63,7 +63,7 @@ const search =  () => {
     filter.FieldName = "Email"
   }
   Search.Filters?.push(filter);
-  var respone =  axios.post('https://localhost:7234/api/UserManagement/search', Search)
+  var respone =  axiosInstance.post('UserManagement/search', Search)
   .then(data2 =>{
     console.log(data2)
     console.log(data2.data)

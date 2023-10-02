@@ -5,46 +5,28 @@
         <!-- <router-link to="/" class="link">Home</router-link>
           <router-link to="/Login" class="link">Login</router-link>
           <router-link to="/User" class="link">User</router-link> -->
-        <el-scrollbar>
-          <el-menu :default-openeds="['1', '2']">
-            <el-menu-item index="1-3" class="layout1-li">
-              <router-link to="/" class="Home">Home</router-link>
-            </el-menu-item>
-            <el-sub-menu index="1">
-              <template #title>
-                <message />Product
-              </template>
-              <el-menu-item index="1-1" class="layout1-li">
-                <router-link to="/Product/Create" class="layout1-link"
-                  >Create Product</router-link
-                >
-              </el-menu-item>
-              <el-menu-item index="1-2" class="layout1-li">
-                <router-link to="/Product" class="layout1-link"
-                  >Product Management</router-link
-                >
-              </el-menu-item>
-            </el-sub-menu>
-            <el-sub-menu index="2">
-              <template #title>
-                <message />Supplier
-              </template>
-              <el-menu-item index="1-1" class="layout1-li">
-                <router-link to="/Supplier/Create" class="layout1-link"
-                  >Create Supplier</router-link
-                >
-              </el-menu-item>
-              <el-menu-item index="1-2" class="layout1-li">
-                <router-link to="/Supplier" class="layout1-link"
-                  >Supplier Management</router-link
-                >
-              </el-menu-item>
-            </el-sub-menu>
-            <!-- <el-menu-item index="1-3" class="layout1-li">
-              <router-link to="/login" class=""><el-icon><UserFilled /></el-icon></router-link>
-            </el-menu-item> -->
-          </el-menu>
-        </el-scrollbar>
+          <el-row class="tac">
+    <el-col :span="30">
+      <el-menu
+        default-active="2"
+        class="el-menu-vertical-demo"
+      >
+        <el-menu-item index="1" >
+          <el-icon><User /></el-icon>
+          <router-link to="/Login" class="layout1-link">Login</router-link>
+        </el-menu-item>
+        <el-menu-item index="2" >
+          <el-icon><Shop /></el-icon>
+          <span><router-link to="/Supplier" class="layout1-link">Supplier</router-link></span>
+        </el-menu-item>
+        <el-menu-item index="3">
+          <el-icon><setting /></el-icon>
+          <span>Navigator Four</span>
+        </el-menu-item>
+      </el-menu>
+    </el-col>
+
+  </el-row>
       </el-aside>
       <el-container>
         <el-header>
@@ -58,10 +40,16 @@
     </el-container>
   </div>
 </template>
+<script setup lang="ts">
+import {
+  Document,
+    Shop,
+    Setting,
+    User
+} from '@element-plus/icons-vue';
+
+</script>
 <style>
-.el-aside {
-  background-color: #ccc;
-}
 .el-footer {
   background-color: black;
 }
@@ -86,5 +74,8 @@
   width: 100%;
   color: black;
   font-size: 25px !important;
+}
+.el-row{
+  display: block !important;
 }
 </style>
