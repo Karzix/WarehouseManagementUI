@@ -51,10 +51,11 @@ import {
 </script>
 <style>
 .el-footer {
-  background-color: black;
+  background-color:  rgb(41, 22, 184);
 }
 .el-header {
-  background-color: aquamarine;
+  background-color: rgb(41, 22, 184);
+  color: aliceblue;
 }
 .layout1-link {
   text-decoration: none;

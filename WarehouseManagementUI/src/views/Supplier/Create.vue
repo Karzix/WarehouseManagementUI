@@ -18,7 +18,7 @@ import {SupplierDtos} from '../../Models/Dtos/SupplierDtos'
 import axios from "axios";
 import { axiosInstance } from "../../Service/axiosConfig";
 var Supplier = reactive<SupplierDtos>({
-  id: "53a81d6c-0703-4f63-a600-e413f7dc9c69",
+  id: null,
   email: "",
   name: ""
 });

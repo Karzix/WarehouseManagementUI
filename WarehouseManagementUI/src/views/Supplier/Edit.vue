@@ -13,6 +13,7 @@
 </template>
 <script setup lang="ts">
 import { ref, reactive } from "vue";
+//@ts-ignore
 import { SupplierDtos } from "@/Models/Dtos/SupplierDtos";
 import { useRoute } from "vue-router";
 import { getSupplier } from "../../Service/Supplier/GetById";
