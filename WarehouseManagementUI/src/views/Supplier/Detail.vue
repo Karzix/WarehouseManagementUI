@@ -1,5 +1,6 @@
 <template>
   {{ supplier.id }} | {{ supplier.name }} | {{ supplier.email }}
+  <router-link :to="`Edit/${useRoute().params.Id}/AddProduct`">Add product</router-link>
   <el-table :data="data" style="width: 100%">
     <el-table-column prop="id" label="id" width="280px" />
     <el-table-column prop="name" label="Name" width="280px" />
