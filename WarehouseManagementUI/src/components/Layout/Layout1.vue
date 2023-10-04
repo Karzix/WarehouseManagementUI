@@ -5,28 +5,30 @@
         <!-- <router-link to="/" class="link">Home</router-link>
           <router-link to="/Login" class="link">Login</router-link>
           <router-link to="/User" class="link">User</router-link> -->
-          <el-row class="tac">
-    <el-col :span="30">
-      <el-menu
-        default-active="2"
-        class="el-menu-vertical-demo"
-      >
-        <el-menu-item index="1" >
-          <el-icon><User /></el-icon>
-          <router-link to="/Login" class="layout1-link">Login</router-link>
-        </el-menu-item>
-        <el-menu-item index="2" >
-          <el-icon><Shop /></el-icon>
-          <span><router-link to="/Supplier" class="layout1-link">Supplier</router-link></span>
-        </el-menu-item>
-        <el-menu-item index="3">
-          <el-icon><setting /></el-icon>
-          <span>Navigator Four</span>
-        </el-menu-item>
-      </el-menu>
-    </el-col>
-
-  </el-row>
+        <el-row class="tac">
+          <el-col :span="30">
+            <el-menu default-active="2" class="el-menu-vertical-demo">
+              <router-link to="/" class="layout1-link" >
+                <el-menu-item index="1">
+                  <el-icon><House /></el-icon>
+                  Home
+                </el-menu-item>
+              </router-link>
+              <router-link to="/Supplier" class="layout1-link">
+                <el-menu-item index="2">
+                  <el-icon><Shop /></el-icon>
+                  <span>Supplier</span>
+                </el-menu-item>
+              </router-link>
+              <router-link to="/Product" class="layout1-link">
+                <el-menu-item index="3">
+                  <el-icon><Goods /></el-icon>
+                  <span>Product</span>
+                </el-menu-item>
+              </router-link>
+            </el-menu>
+          </el-col>
+        </el-row>
       </el-aside>
       <el-container>
         <el-header>
@@ -43,15 +45,16 @@
 <script setup lang="ts">
 import {
   Document,
-    Shop,
-    Setting,
-    User
-} from '@element-plus/icons-vue';
-
+  Shop,
+  Setting,
+  User,
+  House,
+  Goods,
+} from "@element-plus/icons-vue";
 </script>
 <style>
 .el-footer {
-  background-color:  rgb(41, 22, 184);
+  background-color: rgb(41, 22, 184);
 }
 .el-header {
   background-color: rgb(41, 22, 184);
@@ -70,13 +73,13 @@ import {
 .el-sub-menu__title {
   font-size: 25px !important;
 }
-.Home{
+.Home {
   text-decoration: none;
   width: 100%;
   color: black;
   font-size: 25px !important;
 }
-.el-row{
+.el-row {
   display: block !important;
 }
 </style>

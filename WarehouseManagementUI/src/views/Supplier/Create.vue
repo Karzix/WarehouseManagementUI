@@ -15,8 +15,8 @@
 <script setup lang="ts">
 import { ref, reactive } from "vue";
 import {SupplierDtos} from '../../Models/Dtos/SupplierDtos'
-import axios from "axios";
-import { axiosInstance } from "../../Service/axiosConfig";
+import {CreateSupplier} from '../../Service/Supplier/Create'
+import router from "@/router";
 var Supplier = reactive<SupplierDtos>({
   id: null,
   email: "",
@@ -24,7 +24,18 @@ var Supplier = reactive<SupplierDtos>({
 });
 
 async function submitForm() {
-  alert("đã post");
+  try{
+    var respone =  await CreateSupplier(Supplier);
+    if(respone.isSuccess){
+      router.push('/Supplier')
+    }
+    else{
+      console.log(respone.message)
+    }
+  }
+  catch(ex){
+    console.error(ex);
+  }
 }
 </script>
 <style>

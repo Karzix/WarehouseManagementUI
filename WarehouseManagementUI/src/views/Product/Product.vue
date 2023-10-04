@@ -1,6 +1,6 @@
 <template>
-<router-link to="/Product/Create">Create prodct</router-link>
-<el-table :data="data" style="width: 100%">
+  <router-link to="/Product/Create">Create prodct</router-link>
+  <el-table :data="Data.data?.data" style="width: 100%">
     <el-table-column prop="id" label="id" width="280px" />
     <el-table-column prop="name" label="Name" width="280px" />
     <el-table-column prop="description" label="Description" width="280px" />
@@ -15,40 +15,39 @@
         
       </template>
     </el-table-column> -->
-</el-table>
-
-    
+  </el-table>
 </template>
 <script setup lang="ts">
-import {ref, reactive} from 'vue'
-import { ProductDtos } from '@/Models/Dtos/ProductDtos';
-import axios from 'axios';
-import { axiosInstance } from "../../Service/axiosConfig";
-var data = ref([] as ProductDtos[])
-var Product = reactive<ProductDtos>({
-    id: '',
-    name: '',
-    quantity: 0,
-    description: ''
+import { ref, reactive } from "vue";
+import { ProductDtos } from "@/Models/Dtos/ProductDtos";
+import {Search} from '../../Service/Product/Search'
+import type { SearchRequest } from "@/components/maynghien/BaseModels/SearchRequest";
+import type { Filter } from "@/Models/Request/Filter";
+import type { AppResponse } from "@/models/AppResponse";
+import type { SearchResponse } from "@/Models/Request/SearchResponse";
+var Data = ref<AppResponse<SearchResponse<ProductDtos>>>({
+  isSuccess:false,
+  data : {
+    data: undefined,
+    currentPage: undefined,
+    totalPages: undefined,
+    rowsPerPage: undefined,
+    totalRows: undefined
+  },
+  message: ""
+});
+
+let searchRequest: SearchRequest = reactive({
+  Filters: [{
+    FieldName: "IsDelete",
+    Value: ""
+  }] as Filter[],
+  SortByInfo: undefined,
+  PageIndex: 1,
+  PageSize: 10 ,
 })
-const getData =async () => {
-    // var respone = [] as ProductDtos[]
-    await axiosInstance.get('Product')
-    .then( listProduct =>{
-      data.value = listProduct.data.data
-    console.log(data.value);
-    
-    }
-    )
-    // return respone;
+Search(searchRequest).then(resule =>{
+  Data.value = resule
 }
-getData();
-
-
-async function submitForm() {
-    console.log(Product)
-    await axiosInstance.post('Product', Product)
-    getData();
-    
-}
+)
 </script>
