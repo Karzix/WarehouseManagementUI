@@ -84,11 +84,10 @@ const previousPage = () => {
 
 async function addProduct(productId: string) {
   try {
-    
-
     const supplierId = params.Id;
     var result = await AddProduct(productId, String(supplierId));
     console.log(result);
+    
   } catch (ex) {
     console.error(ex);
   }

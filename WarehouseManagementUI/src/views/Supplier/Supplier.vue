@@ -43,7 +43,7 @@ let Search: SearchRequest = reactive({
   }] as Filter[],
   SortByInfo: undefined,
   PageIndex: 1,
-  PageSize: 2 ,
+  PageSize: 10 ,
 })
 
 //vì bản thân fetch Data đang là kiểu Promise nên cần dùng "".then" để trả về kiểu Appresponse

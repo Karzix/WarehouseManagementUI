@@ -13,6 +13,7 @@ import CreateSupplier from '../views/Supplier/Create.vue'
 import SupplierProductDetail from '../views/Supplier/Detail.vue'
 import EditSupplier from '../views/Supplier/Edit.vue'
 import AddProductForSupplier from '../views/Supplier/AddProduct.vue'
+import CreateNewProductForSupplier from '@/views/Supplier/CreateNewProduct.vue'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -107,6 +108,10 @@ const router = createRouter({
         {
           path: "Edit/:Id/AddProduct",
           component: AddProductForSupplier,
+        },
+        {
+          path: "Edit/:Id/CreateNewProduct",
+          component: CreateNewProductForSupplier,
         },
       ],
     },

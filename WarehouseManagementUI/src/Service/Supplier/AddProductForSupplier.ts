@@ -14,10 +14,12 @@ export const CreateNewProduct = async (Product:ProductDtos, supplierId: string):
     console.log(Product)
         try{
             var respons =  await axiosInstance.post('Product', Product);
+            console.log(respons.data.data.id);
             if(respons.data.isSuccess){
                 var supplierProduct = new SupplierProductDtos();
                 supplierProduct.SupplierId = supplierId;
-                supplierProduct.ProductId = Product.id;
+                supplierProduct.ProductId = respons.data.data.id;
+                console.log(supplierProduct)
                 var respons2 = await axiosInstance.post('SupplierProduct', supplierProduct)
                 resust.data = respons2.data.data;
                 resust.message = respons2.data.message;
@@ -57,6 +59,7 @@ export const AddProduct =  async(ProductId: string, SupplierId: string) : Promis
                 }
                 else{
                     console.log(resust.message);
+                    alert(resust.message)
                 }
         }
         catch(ex){

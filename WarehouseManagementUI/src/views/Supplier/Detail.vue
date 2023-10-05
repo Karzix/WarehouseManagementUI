@@ -1,6 +1,7 @@
 <template>
   {{ supplier.id }} | {{ supplier.name }} | {{ supplier.email }}
-  <router-link :to="`Edit/${useRoute().params.Id}/AddProduct`">Add product</router-link>
+  <router-link :to="`Edit/${useRoute().params.Id}/AddProduct`">Add product</router-link> | |
+  <router-link :to="`Edit/${useRoute().params.Id}/CreateNewProduct`">Create new product</router-link>
   <el-table :data="data" style="width: 100%">
     <el-table-column prop="id" label="id" width="280px" />
     <el-table-column prop="name" label="Name" width="280px" />
@@ -22,7 +23,7 @@ let Search: SearchRequest = reactive({
   Filters: [] as Filter[],
   SortByInfo: undefined,
   PageIndex: 1,
-  PageSize: 2,
+  PageSize: 100,
 });
 let supplier = ref<SupplierDtos>({
   id: null,

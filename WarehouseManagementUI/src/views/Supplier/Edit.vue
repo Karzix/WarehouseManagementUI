@@ -1,6 +1,4 @@
 <template>
-  <router-link :to="`Supplier/Edit/${useRoute().params.Id}/AddProduct`">Add product</router-link>
-  <router-link to="">Create new product</router-link>
   <el-form label-width="120px" class="Supplier-Create-From">
     <el-form-item label="Name">
       <el-input v-model="SupplierRef.name" type="text" />
