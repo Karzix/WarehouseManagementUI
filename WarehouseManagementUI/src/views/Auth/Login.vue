@@ -104,7 +104,7 @@ const state = reactive<LoginViewModel>({
   password: '',
   email: '1',
   role: '1',
-  id : '53a81d6c-0703-4f63-a600-e413f7dc9c69'
+  id : undefined
 });
 const submitForm = async () => {
   console.log(state);

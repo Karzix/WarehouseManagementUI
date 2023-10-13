@@ -2,10 +2,10 @@ import { axiosInstance } from "../../Service/axiosConfig";
 import { AppResponse } from "@/Models/AppResponse";
 import { SearchRequest } from "@/Models/Request/ShearchRequest";
 import type { SearchResponse } from "@/Models/Request/SearchResponse";
-import type { ProductDtos } from "@/Models/Dtos/ProductDtos";
+import type { InboundReceiptDtos } from "@/Models/Dtos/InboundReceiptDtos";
 
-export const SearchProduct =async (model:SearchRequest): Promise<AppResponse<SearchResponse<ProductDtos>>> =>{
-    let result :AppResponse<SearchResponse<ProductDtos>>={
+export const SearchInboundReceipt =async (model:SearchRequest): Promise<AppResponse<SearchResponse<InboundReceiptDtos>>> =>{
+    let result :AppResponse<SearchResponse<InboundReceiptDtos>>={
         isSuccess : false,
         message : "",
         data : {
@@ -17,7 +17,7 @@ export const SearchProduct =async (model:SearchRequest): Promise<AppResponse<Sea
         }
     };
     try{
-    await axiosInstance.post("Product/search", model)
+    await axiosInstance.post("InboundReceipt/search", model)
     .then((listProduct) => {
       result.data = listProduct.data.data;
     });
@@ -25,6 +25,5 @@ export const SearchProduct =async (model:SearchRequest): Promise<AppResponse<Sea
     catch(ex){
         console.error(ex);
     }
-
     return result;
 }

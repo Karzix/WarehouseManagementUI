@@ -3,7 +3,7 @@ import { axiosInstance } from "../../Service/axiosConfig";
 import { AppResponse } from "@/Models/AppResponse";
 import type { SearchRequest } from "@/Models/Request/ShearchRequest";
 import type { SearchResponse } from "@/Models/Request/SearchResponse";
-export const fetchData = async (model:SearchRequest) : Promise<AppResponse<SearchResponse<SupplierDtos>>> => {
+export const SearchSupplier = async (model:SearchRequest) : Promise<AppResponse<SearchResponse<SupplierDtos>>> => {
     let result :AppResponse<SearchResponse<SupplierDtos>>={
         isSuccess : false,
         message : "",

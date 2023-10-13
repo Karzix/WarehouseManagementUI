@@ -33,7 +33,7 @@
 <script setup lang="ts">
 import { ref, reactive } from "vue";
 import { ProductDtos } from "@/Models/Dtos/ProductDtos";
-import { Search } from "../../Service/Product/Search";
+import { SearchProduct } from "../../Service/Product/Search";
 import type { SearchRequest } from "@/components/maynghien/BaseModels/SearchRequest";
 import type { Filter } from "@/Models/Request/Filter";
 import type { AppResponse } from "@/models/AppResponse";
@@ -66,18 +66,18 @@ let searchRequest: SearchRequest = reactive({
   PageIndex: 1,
   PageSize: 10,
 });
-Search(searchRequest).then((resule) => {
+SearchProduct(searchRequest).then((resule) => {
   Data.value = resule;
 });
 const nextPage = () => {
   searchRequest.PageIndex!++;
-  Search(searchRequest).then((resule) => {
+  SearchProduct(searchRequest).then((resule) => {
     Data.value = resule;
   });
 };
 const previousPage = () => {
   searchRequest.PageIndex!--;
-  Search(searchRequest).then((resule) => {
+  SearchProduct(searchRequest).then((resule) => {
     Data.value = resule;
   });
 };

@@ -14,6 +14,7 @@ import SupplierProductDetail from '../views/Supplier/Detail.vue'
 import EditSupplier from '../views/Supplier/Edit.vue'
 import AddProductForSupplier from '../views/Supplier/AddProduct.vue'
 import CreateNewProductForSupplier from '@/views/Supplier/CreateNewProduct.vue'
+import InboundReceipt from '@/views/InboundReceipt/Index.vue'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -114,6 +115,10 @@ const router = createRouter({
           component: CreateNewProductForSupplier,
         },
       ],
+    },
+    {
+      path: "/InboundReceipt",
+      component: InboundReceipt,
     },
   ]
 })

@@ -1,7 +1,11 @@
+import { ImportProductDtos } from "./ImportProductDtos";
 export class InboundReceiptDtos {
     id: string|undefined;
     SupplierId:string|undefined;
-    Supplier :object|undefined;
+    SupplierName :string|undefined;
     WarehouseId :string|undefined;
-    Warehouse:object|undefined;
+    WarehouseName:string|undefined;
+    CreateOn: Date|undefined;
+
+    ListImportProduct: ImportProductDtos[]|undefined;
 }

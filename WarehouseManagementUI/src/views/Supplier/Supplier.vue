@@ -19,7 +19,7 @@
 <script setup lang="ts">
 import { ref, reactive } from "vue";
 import {SupplierDtos} from '../../Models/Dtos/SupplierDtos'
-import{fetchData} from '../../Service/Supplier/GetAllSupplier'
+import{SearchSupplier} from '../../Service/Supplier/GetAllSupplier'
 import { AppResponse } from "@/models/AppResponse";
 import { SearchRequest } from "@/Models/Request/ShearchRequest";
 import { Filter } from "../../Models/Request/Filter";
@@ -47,7 +47,7 @@ let Search: SearchRequest = reactive({
 })
 
 //vì bản thân fetch Data đang là kiểu Promise nên cần dùng "".then" để trả về kiểu Appresponse
-fetchData(Search).then(result =>{
+SearchSupplier(Search).then(result =>{
   Data.value = result;
 })
 

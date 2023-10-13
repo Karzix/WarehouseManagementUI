@@ -29,7 +29,6 @@ id: String(useRoute().params.Id),
 name: "",
 description: "",
 quantity: 0,
-email: undefined,
 //value: undefined
 });
   getProduct(useRoute().params.Id).then((result: { data: any; }) => {
@@ -38,7 +37,7 @@ email: undefined,
   });
   const deleteProduct = async() => {
     try{
-      const respone = await DeleteProduct(Product.value.id);
+      const respone = await DeleteProduct(String(Product.value.id));
       if(!respone.isSuccess){
         console.log(respone.message)
       }
