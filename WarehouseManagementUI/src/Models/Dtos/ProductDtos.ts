@@ -1,5 +1,5 @@
 export class ProductDtos {
-    id:string|undefined;
+    id:number|undefined;
     name:string | undefined;
     description:string | undefined;
     quantity :number|undefined;

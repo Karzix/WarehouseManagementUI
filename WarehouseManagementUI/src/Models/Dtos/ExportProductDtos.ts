@@ -1,5 +1,5 @@
 export class ExportProductDtos {
-    id:string|undefined;
+    id:number|undefined;
     Quantity:number | undefined;
     SupplierProductId:string|undefined;
     SupplierProduct:object|undefined;

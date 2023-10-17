@@ -1,11 +1,11 @@
 import { ImportProductDtos } from "./ImportProductDtos";
 export class InboundReceiptDtos {
-    id: string|undefined;
-    SupplierId:string|undefined;
-    SupplierName :string|undefined;
-    WarehouseId :string|undefined;
-    WarehouseName:string|undefined;
-    CreateOn: Date|undefined;
+    id: number|undefined;
+    supplierId:number|undefined;
+    supplierName :string|undefined;
+    warehouseId :number|undefined;
+    warehouseName:string|undefined;
+    createOn: Date|undefined;
 
-    ListImportProduct: ImportProductDtos[]|undefined;
+    listImportProduct: ImportProductDtos[]|undefined;
 }

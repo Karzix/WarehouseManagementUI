@@ -1,19 +1,18 @@
-import type { ProductDtos } from "@/Models/Dtos/ProductDtos"
 import { axiosInstance } from "../../Service/axiosConfig";
 import type { AppResponse } from "@/Models/AppResponse";
 import router from "@/router";
 
-export const DeleteProduct = async (Id:Number) : Promise<AppResponse<Number>>=>{
+export const DeleteWarehouse = async (Id:Number) : Promise<AppResponse<Number>>=>{
     let result: AppResponse<Number> = {
         isSuccess: false,
         message: "",
         data: undefined,
       };
       try{
-        await axiosInstance.delete(`Product/${Id}`)
+        await axiosInstance.delete(`Warehouse/${Id}`)
         .then(respone =>{
             result = respone.data
-            window.location.href = `/Product`;
+            window.location.href = `/Warehouse`;
         })
       }
       catch(ex){

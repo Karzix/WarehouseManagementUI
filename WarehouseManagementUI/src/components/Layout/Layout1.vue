@@ -7,7 +7,7 @@
           <router-link to="/User" class="link">User</router-link> -->
         <el-row class="tac">
           <el-col :span="30">
-            <el-menu default-active="2" class="el-menu-vertical-demo">
+            <el-menu default-active="1" class="el-menu-vertical-demo">
               <router-link to="/" class="layout1-link" >
                 <el-menu-item index="1">
                   <el-icon><House /></el-icon>

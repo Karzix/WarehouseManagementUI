@@ -14,7 +14,14 @@ import SupplierProductDetail from '../views/Supplier/Detail.vue'
 import EditSupplier from '../views/Supplier/Edit.vue'
 import AddProductForSupplier from '../views/Supplier/AddProduct.vue'
 import CreateNewProductForSupplier from '@/views/Supplier/CreateNewProduct.vue'
-import InboundReceipt from '@/views/InboundReceipt/Index.vue'
+import InboundReceipt from '../views/InboundReceipt/Index.vue'
+import Warehouse from '../views/Warehouse/Index.vue'
+import CreateWarehouse from '../views/Warehouse/Create.vue'
+import DetailWarehouse from "../views/Warehouse/Detail.vue";
+import EditWarehouse from "../views/Warehouse/Edit.vue";
+import CreateInboundReceipt from '../views/InboundReceipt/Create.vue';
+import Cookies from 'js-cookie'
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -117,10 +124,60 @@ const router = createRouter({
       ],
     },
     {
-      path: "/InboundReceipt",
-      component: InboundReceipt,
+      path: '/InboundReceipt',
+      component: Layout,
+      meta: { requiresAuth: true }, 
+      children: [
+        {
+          path: '',
+          component: InboundReceipt,
+        },
+        {
+          path: 'Create',
+          component: CreateInboundReceipt,
+        },
+        {
+          path: ":Id",
+          component: DetailWarehouse,
+        },
+        {
+          path: "Edit/:Id",
+          component: EditWarehouse,
+        }
+      ],
+    },
+    {
+      path: '/Warehouse',
+      component: Layout,
+      meta: { requiresAuth: true }, 
+      children: [
+        {
+          path: '',
+          component: Warehouse,
+        },
+        {
+          path: 'Create',
+          component: CreateWarehouse,
+        },
+        {
+          path: ":Id",
+          component: DetailWarehouse,
+        },
+        {
+          path: "Edit/:Id",
+          component: EditWarehouse,
+        }
+      ],
     },
   ]
 })
-
+// router.beforeEach((to, from, next) => {
+//   const isAuthenticated = !!Cookies.get('accessToken');
+  
+//   if (to.meta.requiresAuth && !isAuthenticated && to.path !== '/login') {
+//     next({ path: '/login' });  
+//   } else {
+//     next(); // Continue to the requested route
+//   }
+// });
 export default router

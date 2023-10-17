@@ -1,5 +1,5 @@
 export class OutboundReceiptDtos {
-    id: string|undefined;
+    id: number|undefined;
     To:string|undefined;
     WarehouseId:string|undefined;
     Warehouse :object|undefined;

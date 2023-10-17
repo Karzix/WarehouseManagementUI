@@ -22,7 +22,7 @@ import router from "@/router";
 
 
 var SupplierRef = ref<SupplierDtos>({
-  id: String(useRoute().params.Id),
+  id: Number(useRoute().params.Id),
   email: "",
   name: "",
 });

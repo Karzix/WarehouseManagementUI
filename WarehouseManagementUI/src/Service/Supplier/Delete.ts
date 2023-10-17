@@ -3,11 +3,11 @@ import { axiosInstance } from "../../Service/axiosConfig";
 import type { AppResponse } from "@/Models/AppResponse";
 import router from "@/router";
 
-export const Delete = async (Id:string) : Promise<AppResponse<String>>=>{
-    let result: AppResponse<string> = {
+export const Delete = async (Id:Number) : Promise<AppResponse<Number>>=>{
+    let result: AppResponse<Number> = {
         isSuccess: false,
         message: "",
-        data: "",
+        data: undefined
       };
       try{
         await axiosInstance.delete(`Supplier/${Id}`)

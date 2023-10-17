@@ -22,7 +22,7 @@ import { axiosInstance } from "../../Service/axiosConfig";
 import {CreateProduct} from '../../Service/Product/Create'
 var data = ref([] as ProductDtos[]);
 var Product = reactive<ProductDtos>({
-  id: "53a81d6c-0703-4f63-a600-e413f7dc9c69",
+  id: undefined,
   name: "",
   quantity: 0,
   description: "",

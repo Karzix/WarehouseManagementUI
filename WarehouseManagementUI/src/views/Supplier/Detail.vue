@@ -39,7 +39,7 @@ getSupplier(useRoute().params.Id).then((result) => {
 });
 
 //cái này dùng để tìm sản phẩm mà cái thằng ncc nó cung cấp
-function search() {
+async function search() {
   Search.Filters = [];
 
   const filter: Filter = {
@@ -48,8 +48,8 @@ function search() {
     Operation: "search",
   };
   Search.Filters?.push(filter);
-  var respone = axiosInstance
-    .post("SupplierProduct/SearchProduct", Search)
+  await axiosInstance
+    .post("SupplierProduct/search", Search)
     .then((result) => {
       console.log(result.data);
       data.value = result.data.data.data;

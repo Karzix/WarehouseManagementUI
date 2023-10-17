@@ -1,5 +1,5 @@
 export class ProductRemainingDtos {
-    id:string|undefined;
+    id:number|undefined;
     Quantity:number|undefined;
     ProductId :string|undefined;
     Product :object|undefined;

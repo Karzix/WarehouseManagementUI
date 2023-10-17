@@ -21,10 +21,10 @@
 import { ref, reactive } from "vue";
 import { ProductDtos } from "@/Models/Dtos/ProductDtos";
 import {SearchProduct} from '../../Service/Product/Search'
-import type { SearchRequest } from "@/components/maynghien/BaseModels/SearchRequest";
 import type { Filter } from "@/Models/Request/Filter";
 import type { AppResponse } from "@/models/AppResponse";
 import type { SearchResponse } from "@/Models/Request/SearchResponse";
+import type { SearchRequest } from "@/Models/Request/ShearchRequest";
 var Data = ref<AppResponse<SearchResponse<ProductDtos>>>({
   isSuccess:false,
   data : {
