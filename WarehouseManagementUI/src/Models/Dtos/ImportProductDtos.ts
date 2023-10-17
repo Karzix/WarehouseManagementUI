@@ -6,5 +6,4 @@ export class ImportProductDtos {
     productId:number|undefined;
     productName:string|undefined;
     inboundReceiptId :number|undefined;
-    inboundReceiptName:string|undefined;
 }

@@ -1,9 +1,10 @@
 import type { AppResponse } from "@/Models/AppResponse";
 import { axiosInstance } from "../axiosConfig";
 import {InboundReceiptDtos} from '@/Models/Dtos/InboundReceiptDtos'
+import router from "@/router";
 
  
-export const CreateProduct = async (model:InboundReceiptDtos): Promise<AppResponse<InboundReceiptDtos>> =>{
+export const CreateInboundReceipt = async (model:InboundReceiptDtos): Promise<AppResponse<InboundReceiptDtos>> =>{
     let resust: AppResponse<InboundReceiptDtos> = {
         isSuccess: false,
         message: "",
@@ -16,7 +17,7 @@ export const CreateProduct = async (model:InboundReceiptDtos): Promise<AppRespon
             resust.message = respons.data.message;
             resust.isSuccess = respons.data.isSuccess;
             if(resust.isSuccess){
-            window.location.href = '/InboundReceipt';
+            router.push('/InboundReceipt');
             }
             else{
                 alert(resust.message);

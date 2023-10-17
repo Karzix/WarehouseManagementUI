@@ -17,7 +17,7 @@
         placeholder="Tên kho"
         :remote-method="remoteMethodWarehouse"
         required
-        :disabled="!(inboundReceipt.listImportProduct?.length == 0)"
+        :disabled="!(inboundReceipt.listImportProductDto?.length == 0)"
       >
         <el-option
           v-for="item in listWarehouseRef"
@@ -37,7 +37,7 @@
         placeholder="Tên nhà cung cấp"
         :remote-method="remoteMethodSupplier"
         required
-        :disabled="!(inboundReceipt.listImportProduct?.length == 0)"
+        :disabled="!(inboundReceipt.listImportProductDto?.length == 0)"
       >
         <el-option
           v-for="item in listSupplierRef"
@@ -48,15 +48,15 @@
       </el-select>
     </div>
     <el-button
-    @click="()=> {console.log('ok') }"
+    @click="createInboundReceipt"
       type="primary"
       style="margin: 0"
-      :disabled="(inboundReceipt.listImportProduct ?? []).length == 0"
+      :disabled="(inboundReceipt.listImportProductDto ?? []).length == 0"
       >Save</el-button
     >
   </div>
 
-  <el-table :data="inboundReceipt.listImportProduct" style="width: 100%">
+  <el-table :data="inboundReceipt.listImportProductDto" style="width: 100%">
     <el-table-column prop="supplierName" label="Supplier" width="180" />
     <el-table-column prop="productName" label="Warehouse" width="180" />
     <el-table-column prop="quantity" label="Quantity" />
@@ -111,6 +111,7 @@ import { SearchSupplierProduct } from "@/Service/SupplierProduct/Search";
 import type { SupplierProductDtos } from "@/Models/Dtos/SupplierProductDtos";
 import type { SearchRequest } from "@/Models/Request/ShearchRequest";
 import { Search } from "@element-plus/icons-vue/global";
+import { CreateInboundReceipt } from "@/Service/InboundReceipt/Create";
 
 let AddProduct = ref(false);
 let EnterQuantity = ref(false);
@@ -156,13 +157,13 @@ const Product = ref<string>("");
 const loading = ref(false);
 // cái này để lưu những gì đã nhập vào csdl
 const inboundReceipt = reactive<InboundReceiptDtos>({
-  supplierId: undefined,
-  warehouseId: undefined,
+  supplierId: Number(Supplier.value),
+  warehouseId: Number(Warehouse.value),
   id: undefined,
   createOn: undefined,
   supplierName: "",
   warehouseName: "",
-  listImportProduct: [],
+  listImportProductDto: [],
 });
 //cái này để tìm cái tên của kho, nhà cung cấp, sản phẩm
 const remoteMethodWarehouse = (query: string) => {
@@ -211,7 +212,7 @@ const remoteMethodProduct = (query: string) => {
 //nếu product nào có trong danh sách nhập kho rồi thì không thể thêm lần nữa
 watch(inboundReceipt, () => {
   listSupplierProductRef.value = listSupplierProduct.data?.data?.filter((item) =>
-  !inboundReceipt.listImportProduct?.some((importProduct) =>
+  !inboundReceipt.listImportProductDto?.some((importProduct) =>
     importProduct.productId === item.productId
   )
 ) ?? [];
@@ -228,7 +229,7 @@ const addImportProduct = (idProduct: number, quantity: number) => {
     (x) => x.id == Number(idProduct)
   )[0].productName;
   importProduct.quantity = quantity;
-  inboundReceipt.listImportProduct?.push(importProduct);
+  inboundReceipt.listImportProductDto?.push(importProduct);
 
 
   AddProduct.value = false;
@@ -267,6 +268,12 @@ watch(Supplier, searchProduct);
 const Add = () => {
   AddProduct.value = true;
 };
+
+const createInboundReceipt = async () => {
+  inboundReceipt.supplierId = Number(Supplier.value);
+  inboundReceipt.warehouseId = Number(Warehouse.value);
+  await CreateInboundReceipt(inboundReceipt);
+}
 //cách hoạt động
 /*
 tạo ra một inboundReceipt trước
@@ -310,6 +317,9 @@ sau khi Save sẽ cập nhật lại số sản phẩm trong kho (Phần này t�
   border: 1px solid #ccc;
   color: #ccc;
   padding: 5px;
+}
+.el-table__body{
+  width: 100% !important;
 }
 /* hiệu ứng chuyển động */
 .Create-enter-active {

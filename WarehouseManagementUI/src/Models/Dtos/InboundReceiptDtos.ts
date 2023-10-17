@@ -7,5 +7,5 @@ export class InboundReceiptDtos {
     warehouseName:string|undefined;
     createOn: Date|undefined;
 
-    listImportProduct: ImportProductDtos[]|undefined;
+    listImportProductDto: ImportProductDtos[]|undefined;
 }
