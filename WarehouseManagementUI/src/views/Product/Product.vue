@@ -16,38 +16,60 @@
       </template>
     </el-table-column> -->
   </el-table>
+  <button @click="install">Install</button>
 </template>
 <script setup lang="ts">
-import { ref, reactive } from "vue";
+import { ref, reactive, compile } from "vue";
 import { ProductDtos } from "@/Models/Dtos/ProductDtos";
-import {SearchProduct} from '../../Service/Product/Search'
+import { SearchProduct } from "../../Service/Product/Search";
 import type { Filter } from "@/Models/Request/Filter";
 import type { AppResponse } from "@/models/AppResponse";
 import type { SearchResponse } from "@/Models/Request/SearchResponse";
 import type { SearchRequest } from "@/Models/Request/ShearchRequest";
+import { axiosInstance } from "@/Service/axiosConfig";
 var Data = ref<AppResponse<SearchResponse<ProductDtos>>>({
-  isSuccess:false,
-  data : {
+  isSuccess: false,
+  data: {
     data: undefined,
     currentPage: undefined,
     totalPages: undefined,
     rowsPerPage: undefined,
-    totalRows: undefined
+    totalRows: undefined,
   },
-  message: ""
+  message: "",
 });
 
 let searchRequest: SearchRequest = reactive({
-  Filters: [{
-    FieldName: "IsDelete",
-    Value: ""
-  }] as Filter[],
+  Filters: [
+    {
+      FieldName: "IsDelete",
+      Value: "",
+    },
+  ] as Filter[],
   SortByInfo: undefined,
   PageIndex: 1,
-  PageSize: 10 ,
-})
-SearchProduct(searchRequest).then(resule =>{
-  Data.value = resule
+  PageSize: 10,
+});
+SearchProduct(searchRequest).then((resule) => {
+  Data.value = resule;
+});
+async function install() {
+  // Lấy dữ liệu từ API
+  var response = await axiosInstance.post(
+    "Product/Download",
+      searchRequest,
+    {
+      responseType: "blob"
+    }
+  );
+  const blob = new Blob([response.data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+        const url = URL.createObjectURL(blob);
+
+        const link = document.createElement('a');
+        link.href = url;
+        link.setAttribute('download', 'file.xlsx');
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
 }
-)
 </script>

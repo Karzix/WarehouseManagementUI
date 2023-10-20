@@ -48,7 +48,7 @@
       </el-select>
     </div>
     <el-button
-    @click="createInboundReceipt"
+      @click="createInboundReceipt"
       type="primary"
       style="margin: 0"
       :disabled="(inboundReceipt.listImportProductDto ?? []).length == 0"
@@ -60,6 +60,16 @@
     <el-table-column prop="supplierName" label="Supplier" width="180" />
     <el-table-column prop="productName" label="Warehouse" width="180" />
     <el-table-column prop="quantity" label="Quantity" />
+    <el-table-column fixed="right" label="" width="100px">
+      <template #default="scope">
+        <el-button
+          type="primary"
+          size="small"
+          @click="RemoveImportProduct(scope.row.productId)"
+          >Delete</el-button
+        >
+      </template>
+    </el-table-column>
   </el-table>
   <transition name="Create">
     <div class="Create" v-if="AddProduct == true">
@@ -84,11 +94,14 @@
         <el-table-column prop="productName" label="Name" width="280px" />
         <el-table-column fixed="right" label="" width="100px">
           <template #default="scope">
-              <el-button type="primary" size="small" 
+            <el-button
+              type="primary"
+              size="small"
               @click="addImportProduct(scope.row.productId, scope.row.quantity)"
               :disabled="!scope.row.quantity"
-              >Add</el-button>
-              <el-input type="number" v-model="scope.row.quantity" />
+              >Add</el-button
+            >
+            <el-input type="number" v-model="scope.row.quantity" />
           </template>
         </el-table-column>
       </el-table>
@@ -211,11 +224,13 @@ const remoteMethodProduct = (query: string) => {
 // watch(Product, ()=> remoteMethodProduct(Product.value));
 //nếu product nào có trong danh sách nhập kho rồi thì không thể thêm lần nữa
 watch(inboundReceipt, () => {
-  listSupplierProductRef.value = listSupplierProduct.data?.data?.filter((item) =>
-  !inboundReceipt.listImportProductDto?.some((importProduct) =>
-    importProduct.productId === item.productId
-  )
-) ?? [];
+  listSupplierProductRef.value =
+    listSupplierProduct.data?.data?.filter(
+      (item) =>
+        !inboundReceipt.listImportProductDto?.some(
+          (importProduct) => importProduct.productId === item.productId
+        )
+    ) ?? [];
 });
 //add import vào listImportProduct
 const addImportProduct = (idProduct: number, quantity: number) => {
@@ -231,10 +246,13 @@ const addImportProduct = (idProduct: number, quantity: number) => {
   importProduct.quantity = quantity;
   inboundReceipt.listImportProductDto?.push(importProduct);
 
-
   AddProduct.value = false;
 };
-
+function RemoveImportProduct(idProduct: number) {
+  inboundReceipt.listImportProductDto = inboundReceipt.listImportProductDto?.filter((item) => {
+    return item.productId !== idProduct;
+  })
+}
 //lấy dữ liệu từ DB rồi cho vào một biến lưu trữ, khi nào cần thì thì đem ra dùng
 SearchWarehouse(GetListModels).then((resule) => {
   listWarehouse = resule;
@@ -273,7 +291,7 @@ const createInboundReceipt = async () => {
   inboundReceipt.supplierId = Number(Supplier.value);
   inboundReceipt.warehouseId = Number(Warehouse.value);
   await CreateInboundReceipt(inboundReceipt);
-}
+};
 //cách hoạt động
 /*
 tạo ra một inboundReceipt trước
@@ -294,7 +312,7 @@ sau khi Save sẽ cập nhật lại số sản phẩm trong kho (Phần này t�
 }
 .Create {
   display: flex;
-  z-index: 1;
+  z-index: 10;
   flex-direction: column;
   align-items: flex-start;
   width: 40%;
@@ -318,7 +336,7 @@ sau khi Save sẽ cập nhật lại số sản phẩm trong kho (Phần này t�
   color: #ccc;
   padding: 5px;
 }
-.el-table__body{
+.el-table__body {
   width: 100% !important;
 }
 /* hiệu ứng chuyển động */

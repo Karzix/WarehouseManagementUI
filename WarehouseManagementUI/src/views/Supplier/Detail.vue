@@ -4,9 +4,7 @@
   <router-link :to="`Edit/${useRoute().params.Id}/CreateNewProduct`">Create new product</router-link>
   <el-table :data="data" style="width: 100%">
     <el-table-column prop="id" label="id" width="280px" />
-    <el-table-column prop="name" label="Name" width="280px" />
-    <el-table-column prop="description" label="Description" width="280px" />
-    <el-table-column prop="quantity" label="Quantity" width="280px" />
+    <el-table-column prop="productName" label="product Name" width="280px" />
   </el-table>
 </template>
 <script setup lang="ts">

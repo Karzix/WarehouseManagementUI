@@ -171,13 +171,13 @@ const router = createRouter({
     },
   ]
 })
-router.beforeEach((to, from, next) => {
-  const isAuthenticated = !!Cookies.get('accessToken');
+// router.beforeEach((to, from, next) => {
+//   const isAuthenticated = !!Cookies.get('accessToken');
   
-  if (to.meta.requiresAuth && !isAuthenticated && to.path !== '/login') {
-    next({ path: '/login' });  
-  } else {
-    next(); // Continue to the requested route
-  }
-});
+//   if (to.meta.requiresAuth && !isAuthenticated && to.path !== '/login') {
+//     next({ path: '/login' });  
+//   } else {
+//     next(); // Continue to the requested route
+//   }
+// });
 export default router
