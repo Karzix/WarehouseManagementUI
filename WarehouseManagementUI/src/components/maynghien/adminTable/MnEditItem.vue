@@ -1,110 +1,131 @@
 <template>
-    <el-dialog title="Warning" width="30%" :visible.sync="dialogVisible" :draggable="false">
+    <el-dialog :model-value="openDialog" :title="(isEdit?'Edit ':'Create ')+ title" class="form-dialog" width="30%" @close="emit('onCloseClicked')">
 
-        <div class="editform">
+        <div class="editform" v-if="model != undefined">
             <div v-for="column in columns" :key="column.key">
-                <div v-if="column.enableEdit == true">
+                <div v-if="(isEdit && column.enableEdit == true) || (!isEdit && column.enableCreate == true)">
                     <!-- Use double curly braces to bind variable values in templates -->
-                    <label>{{ column.key }}</label>
-                    <el-input v-model="model[column.key]" :placeholder="column.key" />
+                    <label>{{ column.label }}</label>
+
+                    <el-input v-model="model[column.key]" :placeholder="column.label"
+                        v-if="column.inputType == undefined || column.inputType == 'text'" />
+
+
+                    <MnDropdown v-if="column.inputType == 'dropdown'" :column="column" @changed="handleUpdateValue"
+                   v-model="model[column.key]"
+                     >
+                    </MnDropdown>
+                    {{ model[column.key]}}
                 </div>
 
             </div>
 
         </div>
-
         <template #footer>
             <span class="dialog-footer">
-                <el-button @click="dialogVisible = false">Cancel</el-button>
+                <el-button @click="emit('onCloseClicked')">Cancel</el-button>
                 <el-button type="primary" @click="Save">
                     Confirm
                 </el-button>
             </span>
+            {{ model }}
         </template>
     </el-dialog>
 </template>
   
 <script setup lang="ts">
-import {  ref, type Ref, computed } from 'vue';
+import { ref, toRefs, computed, watch, inject } from 'vue';
 // @ts-ignore
-import { ElMessage } from 'element-plus';
+import { ElMessage, ElInput } from 'element-plus';
 // @ts-ignore
-import { handleCreate, handleUpdate } from './Service/BasicAdminService.ts'
+import { handleAPICreate, handleAPIUpdate } from './Service/BasicAdminService.ts'
 import type { TableColumn } from './Models/TableColumn';
+import MnDropdown from './Input/MnDropdown.vue';
+// @ts-ignore
+import { SearchDTOItem } from './Models/SearchDTOItem.ts';
 const emit = defineEmits<{
-    (e: 'saved'): void
+    (e: 'onSaved'): void;
+    (e: 'onCloseClicked'): void;
 
 }>()
-const { columns, editItem, apiName, isEdit } = defineProps<{
+const props = defineProps<{
     columns: TableColumn[];
-    editItem: SearchDTOItem | undefined;
+    editItem: SearchDTOItem;
     apiName: string;
     isEdit: boolean;
+    openDialog: boolean;
+    title:string;
 }>();
-const dialogVisible = ref(true);
 // Use computed to create a filtered model
-const model = computed(() => {
-    const filteredModel: SearchDTOItem = {};
-
-    for (const column of columns) {
-        if (column.enableEdit) {
-            filteredModel[column.key] = editItem ? editItem[column.key] : '';
-        }
-    }
-
-    return filteredModel;
-});
+const model = ref<SearchDTOItem>(props.editItem);
 const Validate = (): boolean => {
-
-    columns.forEach(column => {
-        if (column.enableEdit) {
-            const value = model.value[column.key];
-            if (column.key == "id" && isEdit) {
-                if (value == undefined)
+    if (model != undefined)
+        props.columns.forEach(column => {
+            if (column.enableEdit) {
+                const value = model.value[column.key];
+                if (column.key == "id" && props.isEdit) {
+                    if (value == undefined)
+                        return false;
+                }
+                if (column.required && (value == undefined || value == "")) {
                     return false;
+                }
             }
-            if (column.required && (value == undefined || value == "")) {
-                return false;
-            }
-        }
 
-    });
-
+        });
+    else return false;
     return true;
 }
 const Save = async () => {
     const valid = Validate();
     if (valid) {
-        if (isEdit == true) {
-            var editresult = await handleUpdate(model.value, apiName);
+        if (props.isEdit == true && props.editItem != undefined) {
+            var editresult = await handleAPIUpdate(props.editItem, props.apiName);
             if (editresult.isSuccess) {
                 ElMessage({
                     message: 'data Updated.',
                     type: 'success',
                 });
             }
-            else  {
+            else {
                 ElMessage.error('Update failed.');
                 return;
-            }  
+            }
         }
-        else{
-            var createresult = await handleCreate(model.value, apiName);
+        else if (props.editItem != undefined) {
+            var createresult = await handleAPICreate(props.editItem, props.apiName);
             if (createresult.isSuccess) {
                 ElMessage({
                     message: 'data Created.',
                     type: 'success',
                 });
             }
-            else  {
+            else {
                 ElMessage.error('Create failed.');
                 return;
-            }  
+            }
         }
+        emit("onSaved");
     }
-    dialogVisible.value = false;
-    emit("saved");
+    else {
+        ElMessage.error('valid failed.');
+    }
+}
+const handleUpdateValue = (key: string, value: string): void => {
+   
+    model.value[key] = value;
+    console.log(model.value);
 }
 
+watch(() => props.editItem, () => {
+    model.value = props.editItem;
+}, { immediate: true })
 </script>
-  
+
+<style>
+.form-dialog {
+    margin-top: 0;
+    margin-right: 0;
+    height: 100%;
+}
+</style>

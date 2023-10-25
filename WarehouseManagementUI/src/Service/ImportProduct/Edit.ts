@@ -6,14 +6,7 @@ export const EditImportProduct = async( model: ImportProductDtos): Promise<AppRe
   let result: AppResponse<ImportProductDtos> = {
     isSuccess: false,
     message: "",
-    data: {
-      id: undefined,
-      quantity: 0,
-      supplierProductId: undefined,
-      supplierProductName: "",
-      inboundReceiptId: undefined,
-      inboundReceiptName: "",
-    },
+    data: undefined
   };
   try {
     await axiosInstance.put(`/ImportProduct/${model.id}`,model)

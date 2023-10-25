@@ -65,7 +65,7 @@
         <el-button
           type="primary"
           size="small"
-          @click="RemoveImportProduct(scope.row.productId)"
+          @click="RemoveImportProduct(Number(scope.$index))"
           >Delete</el-button
         >
       </template>
@@ -125,6 +125,9 @@ import type { SupplierProductDtos } from "@/Models/Dtos/SupplierProductDtos";
 import type { SearchRequest } from "@/Models/Request/ShearchRequest";
 import { Search } from "@element-plus/icons-vue/global";
 import { CreateInboundReceipt } from "@/Service/InboundReceipt/Create";
+import{UpdateProductRemainming} from "@/Service/ProductRemainming/Update"
+import type { ProductDtos } from "@/Models/Dtos/ProductDtos";
+import type { ProductRemainingDtos } from "@/Models/Dtos/ProductRemainingDtos";
 
 let AddProduct = ref(false);
 let EnterQuantity = ref(false);
@@ -249,9 +252,7 @@ const addImportProduct = (idProduct: number, quantity: number) => {
   AddProduct.value = false;
 };
 function RemoveImportProduct(idProduct: number) {
-  inboundReceipt.listImportProductDto = inboundReceipt.listImportProductDto?.filter((item) => {
-    return item.productId !== idProduct;
-  })
+  inboundReceipt.listImportProductDto?.splice(idProduct);
 }
 //lấy dữ liệu từ DB rồi cho vào một biến lưu trữ, khi nào cần thì thì đem ra dùng
 SearchWarehouse(GetListModels).then((resule) => {
@@ -291,6 +292,21 @@ const createInboundReceipt = async () => {
   inboundReceipt.supplierId = Number(Supplier.value);
   inboundReceipt.warehouseId = Number(Warehouse.value);
   await CreateInboundReceipt(inboundReceipt);
+  inboundReceipt.listImportProductDto?.forEach((item) => {
+    const productRemaining: ProductRemainingDtos = {
+      id: undefined,
+      quantity: item.quantity,
+      productId: item.productId,
+      productName: item.productName,
+      warehouseId: Number(Warehouse.value),
+      warehouseName: "",
+      supplierId: Number(Supplier.value),
+      supplierName: "",
+    };
+    UpdateProductRemainming(productRemaining).then((resule) => {
+      console.log(resule.data);
+    })
+  })
 };
 //cách hoạt động
 /*

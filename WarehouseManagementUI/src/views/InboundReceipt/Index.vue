@@ -181,12 +181,11 @@ function DownloadExcel() {
     })
     .then((response) => {
       data = response.data;
-
       // Chuyển dữ liệu thành một đối tượng Blob
       const blob = new Blob([data], { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" });
 
       // Tải file về máy
-      const filename = "InboundReceipt.xlsx";
+      const filename = "InboundReceipt"+Date.now.toString()+".xlsx";
       const link = document.createElement("a");
       link.href = window.URL.createObjectURL(blob);
       link.download = filename;

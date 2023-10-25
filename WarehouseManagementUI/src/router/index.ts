@@ -19,6 +19,7 @@ import Warehouse from '../views/Warehouse/Index.vue'
 import CreateWarehouse from '../views/Warehouse/Create.vue'
 import DetailWarehouse from "../views/Warehouse/Detail.vue";
 import EditWarehouse from "../views/Warehouse/Edit.vue";
+import CreateOutboundReceipt from '../views/OutboundReceipt/Create.vue';
 import CreateInboundReceipt from '../views/InboundReceipt/Create.vue';
 import Cookies from 'js-cookie'
 
@@ -169,15 +170,30 @@ const router = createRouter({
         }
       ],
     },
+    {
+      path: '/OutboundReceipt',
+      component: Layout,
+      meta: { requiresAuth: true }, 
+      children: [
+        {
+          path: '',
+          component: InboundReceipt,
+        },
+        {
+          path: 'Create',
+          component: CreateOutboundReceipt,
+        }
+      ],
+    },
   ]
 })
-// router.beforeEach((to, from, next) => {
-//   const isAuthenticated = !!Cookies.get('accessToken');
+router.beforeEach((to, from, next) => {
+  const isAuthenticated = !!Cookies.get('accessToken');
   
-//   if (to.meta.requiresAuth && !isAuthenticated && to.path !== '/login') {
-//     next({ path: '/login' });  
-//   } else {
-//     next(); // Continue to the requested route
-//   }
-// });
+  if (to.meta.requiresAuth && !isAuthenticated && to.path !== '/login') {
+    next({ path: '/login' });  
+  } else {
+    next(); // Continue to the requested route
+  }
+});
 export default router

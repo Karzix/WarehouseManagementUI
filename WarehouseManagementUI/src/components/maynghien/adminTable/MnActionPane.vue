@@ -2,23 +2,27 @@
     <el-row>
         <el-col :span="24">
             <el-row class="ep-bg-purple-dark el-col-24 action-pane">
-                <el-col :span="12">
+                <el-col :span="24">
                     <el-row>
                         <div v-for="filter in filters">
-                        <el-input v-model="filter.Value"></el-input>
 
-                    </div>
-                    <el-button :icon="Search" circle @click="handlebtnSearchClicked"> search</el-button>
+                            <el-input v-model="filter.Value" :placeholder="filter.DisplayName"></el-input>
+
+                        </div>
+                        <el-button :icon="Search" circle @click="handlebtnSearchClicked"> search</el-button>
 
                     </el-row>
-                   
+
                 </el-col>
 
+
+
+            </el-row>
+            <el-row>
                 <el-col :span="12" class="buttons">
 
                     <el-button :icon="Plus" circle @click="handlebtnAddClicked" v-if="allowAdd"> Create</el-button>
                 </el-col>
-
 
             </el-row>
         </el-col>
@@ -50,7 +54,7 @@ const props = defineProps<{
 
 const emit = defineEmits<{
     (e: 'onBtnAddClicked'): void;
-    (e: 'onBtnSearchClicked'): void;
+    (e: 'onBtnSearchClicked', filters: Filter[]): void;
 }>();
 const filters = ref<Filter[]>([]);
 
@@ -58,17 +62,21 @@ props.tableColumns.forEach(colum => {
     if (colum.showSearch) {
         const newFilter = {
             FieldName: colum.key,
+            DisplayName: colum.label,
             Value: "",
         };
         filters.value?.push(newFilter);
     }
 });
-console.log(filters.value);
 const handlebtnAddClicked = () => {
+    //console.log("btn add click");
     emit("onBtnAddClicked");
+    //console.log("not err");
 }
 const handlebtnSearchClicked = () => {
-    emit("onBtnSearchClicked");
+    const filtersRequest = filters.value.filter(filter => filter.Value !== null && filter.Value !== undefined && filter.Value != "");
+
+    emit("onBtnSearchClicked", filtersRequest);
 }
 </script>
 <style >
@@ -81,7 +89,8 @@ const handlebtnSearchClicked = () => {
     float: right;
     text-align: right;
 }
-button{
+
+button {
     margin-left: 5px;
 }
 </style>

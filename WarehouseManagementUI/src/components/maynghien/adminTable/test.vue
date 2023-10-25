@@ -1,6 +1,0 @@
-
-<template>
-    dsfsd
-    
-  </template>
-    
