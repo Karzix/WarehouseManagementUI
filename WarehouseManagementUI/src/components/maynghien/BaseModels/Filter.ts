@@ -1,4 +1,4 @@
-export class SearchRequest {
+export class Filter {
     
     FieldName: string|undefined;
     DisplayName:string|undefined;

@@ -108,18 +108,6 @@ let searchRequest = reactive<SearchRequest>({
       Value: "",
       Operation: undefined,
     },
-    // {
-    //   FieldName: "Day",
-    //   Value: Day.value,
-    // },
-    // {
-    //   FieldName: "Month",
-    //   Value: Month.value,
-    // },
-    // {
-    //   FieldName: "Year",
-    //   Value: Year.value,
-    // }
   ] as Filter[],
   SortByInfo: undefined,
   PageIndex: 1,

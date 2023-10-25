@@ -40,10 +40,8 @@ import {
     Plus,
 } from '@element-plus/icons-vue';
 
-// @ts-ignore
-import { TableColumn } from './Models/TableColumn.ts'
+import { TableColumn } from './Models/TableColumn';
 
-// @ts-ignore
 import { Filter } from '../BaseModels/Filter';
 
 import { ref } from 'vue';
@@ -64,6 +62,7 @@ props.tableColumns.forEach(colum => {
             FieldName: colum.key,
             DisplayName: colum.label,
             Value: "",
+            Operation: undefined
         };
         filters.value?.push(newFilter);
     }
@@ -79,10 +78,10 @@ const handlebtnSearchClicked = () => {
     emit("onBtnSearchClicked", filtersRequest);
 }
 </script>
-<style >
+<style scoped>
 .action-pane {
     width: "100%";
-    padding: 10px;
+    /* padding: 10px; */
 }
 
 .action-pane .buttons {
@@ -92,5 +91,11 @@ const handlebtnSearchClicked = () => {
 
 button {
     margin-left: 5px;
+}
+.el-row{
+    display: flex !important;
+}
+.el-button{
+    margin: 0;
 }
 </style>

@@ -1,7 +1,6 @@
-// @ts-ignore
-import Filter from "../../../Models/Maynghien/Models/Request/SearchModels/Filter.js";
-// @ts-ignore
-import SortByInfo from "../../../Models/Maynghien/Models/Request/SearchModels/SortByInfo.js";
+
+import {Filter} from "../../maynghien/BaseModels/Filter";
+import {SortByInfo} from "../../maynghien/BaseModels/SortByInfo";
 
 
 export class SearchRequest {

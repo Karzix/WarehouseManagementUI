@@ -3,7 +3,7 @@
 
         <div class="editform" v-if="model != undefined">
             <div v-for="column in columns" :key="column.key">
-                <div v-if="(isEdit && column.enableEdit == true) || (!isEdit && column.enableCreate == true)">
+                <div v-if="(isEdit && column.enableEdit == true) || (!isEdit && column.enableCreate == true)"  class="MnEditItem-itemInput">
                     <!-- Use double curly braces to bind variable values in templates -->
                     <label>{{ column.label }}</label>
 
@@ -28,21 +28,17 @@
                     Confirm
                 </el-button>
             </span>
-            {{ model }}
         </template>
     </el-dialog>
 </template>
   
 <script setup lang="ts">
 import { ref, toRefs, computed, watch, inject } from 'vue';
-// @ts-ignore
 import { ElMessage, ElInput } from 'element-plus';
-// @ts-ignore
-import { handleAPICreate, handleAPIUpdate } from './Service/BasicAdminService.ts'
+import { handleAPICreate, handleAPIUpdate } from './Service/BasicAdminService';
 import type { TableColumn } from './Models/TableColumn';
 import MnDropdown from './Input/MnDropdown.vue';
-// @ts-ignore
-import { SearchDTOItem } from './Models/SearchDTOItem.ts';
+import { SearchDTOItem } from './Models/SearchDTOItem';
 const emit = defineEmits<{
     (e: 'onSaved'): void;
     (e: 'onCloseClicked'): void;
@@ -122,10 +118,19 @@ watch(() => props.editItem, () => {
 }, { immediate: true })
 </script>
 
-<style>
+<style >
 .form-dialog {
-    margin-top: 0;
-    margin-right: 0;
+    margin-top: 0 !important;
+    margin-right: 0 !important;
     height: 100%;
+}
+.editform {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+}
+.MnEditItem-itemInput{
+    display: flex;
+    flex-direction: column;
 }
 </style>

@@ -1,109 +1,96 @@
-import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
-import Layout from '../components/Layout/Layout1.vue'
-import LoginView from '../views/Auth/Login.vue'
-import RegisterView from '../views/Auth/Register.vue'
-import Layout2 from '../components/Layout/Layout2.vue'
-import UserView from '../views/User/User.vue'
-import UserDetailsVue from '../views/User/UserDetails.vue'
-import ProductVue from '../views/Product/Product.vue'
-import CreateProduct from '../views/Product/Create.vue'
-import Supplier from '../views/Supplier/Supplier.vue'
-import CreateSupplier from '../views/Supplier/Create.vue'
-import SupplierProductDetail from '../views/Supplier/Detail.vue'
-import EditSupplier from '../views/Supplier/Edit.vue'
-import AddProductForSupplier from '../views/Supplier/AddProduct.vue'
-import CreateNewProductForSupplier from '@/views/Supplier/CreateNewProduct.vue'
-import InboundReceipt from '../views/InboundReceipt/Index.vue'
-import Warehouse from '../views/Warehouse/Index.vue'
-import CreateWarehouse from '../views/Warehouse/Create.vue'
-import DetailWarehouse from "../views/Warehouse/Detail.vue";
-import EditWarehouse from "../views/Warehouse/Edit.vue";
-import CreateOutboundReceipt from '../views/OutboundReceipt/Create.vue';
-import CreateInboundReceipt from '../views/InboundReceipt/Create.vue';
-import Cookies from 'js-cookie'
+import { createRouter, createWebHistory } from "vue-router";
+import HomeView from "../views/HomeView.vue";
+import Layout from "../components/Layout/Layout1.vue";
+import LoginView from "../views/Auth/Login.vue";
+import RegisterView from "../views/Auth/Register.vue";
+import Layout2 from "../components/Layout/Layout2.vue";
+import UserView from "../views/User/User.vue";
+import ProductVue from "../views/Product/Product.vue";
+import Supplier from "../views/Supplier/Supplier.vue";
+import CreateSupplier from "../views/Supplier/Create.vue";
+import SupplierProductDetail from "../views/Supplier/Detail.vue";
+import EditSupplier from "../views/Supplier/Edit.vue";
+import AddProductForSupplier from "../views/Supplier/AddProduct.vue";
+import CreateNewProductForSupplier from "@/views/Supplier/CreateNewProduct.vue";
+import InboundReceipt from "../views/InboundReceipt/Index.vue";
+import Warehouse from "../views/Warehouse/Index.vue";
+import CreateOutboundReceipt from "../views/OutboundReceipt/Create.vue";
+import CreateInboundReceipt from "../views/InboundReceipt/Create.vue";
+import Cookies from "js-cookie";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
-      path: '/',
+      path: "/",
       component: Layout,
-      meta: { requiresAuth: true }, 
+      meta: { requiresAuth: true },
       children: [
         {
-          path: '',
+          path: "",
           component: HomeView,
         },
         // Other routes using default layout...
       ],
     },
     {
-      path: '/Login',
+      path: "/Login",
       component: Layout2,
-      meta: { requiresAuth: true }, 
+      meta: { requiresAuth: true },
       children: [
         {
-          path: '',
+          path: "",
           component: LoginView,
         },
         // Other routes using default layout...
       ],
     },
     {
-      path: '/Register',
+      path: "/Register",
       component: Layout2,
-      meta: { requiresAuth: true }, 
+      meta: { requiresAuth: true },
       children: [
         {
-          path: '',
+          path: "",
           component: RegisterView,
         },
         // Other routes using default layout...
       ],
     },
     {
-      path: '/User',
+      path: "/User",
       component: Layout,
-      meta: { requiresAuth: true }, 
+      meta: { requiresAuth: true },
       children: [
         {
-          path: '',
+          path: "",
           component: UserView,
         },
         // Other routes using default layout...
       ],
     },
     {
-      path: "/User/:Id",
-      component: UserDetailsVue,
-    },
-    {
-      path: '/Product',
+      path: "/Product",
       component: Layout,
-      meta: { requiresAuth: true }, 
+      meta: { requiresAuth: true },
       children: [
         {
-          path: '',
+          path: "",
           component: ProductVue,
         },
-        {
-          path: 'Create',
-          component: CreateProduct,
-        }
       ],
     },
     {
-      path: '/Supplier',
+      path: "/Supplier",
       component: Layout,
-      meta: { requiresAuth: true }, 
+      meta: { requiresAuth: true },
       children: [
         {
-          path: '',
+          path: "",
           component: Supplier,
         },
         {
-          path: 'Create',
+          path: "Create",
           component: CreateSupplier,
         },
         {
@@ -125,75 +112,51 @@ const router = createRouter({
       ],
     },
     {
-      path: '/InboundReceipt',
+      path: "/InboundReceipt",
       component: Layout,
-      meta: { requiresAuth: true }, 
+      meta: { requiresAuth: true },
       children: [
         {
-          path: '',
+          path: "",
           component: InboundReceipt,
-        },
-        {
-          path: 'Create',
-          component: CreateInboundReceipt,
-        },
-        {
-          path: ":Id",
-          component: DetailWarehouse,
-        },
-        {
-          path: "Edit/:Id",
-          component: EditWarehouse,
         }
       ],
     },
     {
-      path: '/Warehouse',
+      path: "/Warehouse",
       component: Layout,
-      meta: { requiresAuth: true }, 
+      meta: { requiresAuth: true },
       children: [
         {
-          path: '',
+          path: "",
           component: Warehouse,
         },
-        {
-          path: 'Create',
-          component: CreateWarehouse,
-        },
-        {
-          path: ":Id",
-          component: DetailWarehouse,
-        },
-        {
-          path: "Edit/:Id",
-          component: EditWarehouse,
-        }
       ],
     },
     {
-      path: '/OutboundReceipt',
+      path: "/OutboundReceipt",
       component: Layout,
-      meta: { requiresAuth: true }, 
+      meta: { requiresAuth: true },
       children: [
         {
-          path: '',
+          path: "",
           component: InboundReceipt,
         },
         {
-          path: 'Create',
+          path: "Create",
           component: CreateOutboundReceipt,
-        }
+        },
       ],
     },
-  ]
-})
+  ],
+});
 router.beforeEach((to, from, next) => {
-  const isAuthenticated = !!Cookies.get('accessToken');
-  
-  if (to.meta.requiresAuth && !isAuthenticated && to.path !== '/login') {
-    next({ path: '/login' });  
+  const isAuthenticated = !!Cookies.get("accessToken");
+
+  if (to.meta.requiresAuth && !isAuthenticated && to.path !== "/login") {
+    next({ path: "/login" });
   } else {
     next(); // Continue to the requested route
   }
 });
-export default router
+export default router;

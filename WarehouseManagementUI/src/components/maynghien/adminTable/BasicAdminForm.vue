@@ -18,30 +18,21 @@
   
 <script setup lang="ts">
 
-// @ts-ignore
 import MnTable from './MnTable.vue'
 
-// @ts-ignore
 import MnActionPane from './MnActionPane.vue'
-// @ts-ignore
 import MnEditItem from './MnEditItem.vue'
 
 import { ref, provide } from 'vue';
-// @ts-ignore
-import { TableColumn } from './Models/TableColumn.ts'
-// @ts-ignore
-import { SearchDTOItem } from './Models/SearchDTOItem.ts'
+import { TableColumn } from './Models/TableColumn'
+import { SearchDTOItem } from './Models/SearchDTOItem'
 
-// @ts-ignore
-import { handleAPIDelete, handleAPISearch } from './Service/BasicAdminService.ts'
+import { handleAPIDelete, handleAPISearch } from './Service/BasicAdminService'
 
-// @ts-ignore
 import { Filter } from '../BaseModels/Filter';
-// @ts-ignore
 import { SearchResponse } from '../BaseModels/SearchResponse';
 import { SearchRequest } from '../BaseModels/SearchRequest';
-import type { AppResponse } from '@/models/AppResponse';
-// @ts-ignore
+import type { AppResponse } from '@/Models/AppResponse';
 import { ElMessage } from 'element-plus';
 //#region Method
 

@@ -7,5 +7,4 @@ export class SearchDTOItem {
     }
 }
 
-// @ts-ignore
-import {TableColumn} from "./TableColumn.ts"
+import {TableColumn} from "./TableColumn"

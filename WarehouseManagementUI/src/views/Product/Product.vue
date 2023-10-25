@@ -1,75 +1,42 @@
 <template>
-  <router-link to="/Product/Create">Create prodct</router-link>
-  <el-table :data="Data.data?.data" style="width: 100%">
-    <el-table-column prop="id" label="id" width="280px" />
-    <el-table-column prop="name" label="Name" width="280px" />
-    <el-table-column prop="description" label="Description" width="280px" />
-    <el-table-column prop="quantity" label="Quantity" width="280px" />
-    <!-- <el-table-column fixed="right" label="Operations" width="100px">
-      <template #default="scope">
-        <router-link :to='`/User/${scope.row.id}`' >
-        <el-button link type="primary" size="small" 
-          >Detail</el-button
-        >
-       </router-link>
-        
-      </template>
-    </el-table-column> -->
-  </el-table>
-  <button @click="install">Install</button>
+  <Suspense>
+      <BasicAdminFormVue :tableColumns="tableColumns" :apiName="'Product'" :allowAdd="true" :allowDelete="true"
+          title="Sản phẩm"
+          :allowEdit="true"></BasicAdminFormVue>
+  </Suspense>
 </template>
+
 <script setup lang="ts">
-import { ref, reactive, compile } from "vue";
-import { ProductDtos } from "@/Models/Dtos/ProductDtos";
-import { SearchProduct } from "../../Service/Product/Search";
-import type { Filter } from "@/Models/Request/Filter";
-import type { AppResponse } from "@/models/AppResponse";
-import type { SearchResponse } from "@/Models/Request/SearchResponse";
-import type { SearchRequest } from "@/Models/Request/ShearchRequest";
-import { axiosInstance } from "@/Service/axiosConfig";
-var Data = ref<AppResponse<SearchResponse<ProductDtos>>>({
-  isSuccess: false,
-  data: {
-    data: undefined,
-    currentPage: undefined,
-    totalPages: undefined,
-    rowsPerPage: undefined,
-    totalRows: undefined,
+import BasicAdminFormVue from '@/components/maynghien/adminTable/BasicAdminForm.vue';
+import { TableColumn } from '@/components/maynghien/adminTable/Models/TableColumn'
+const tableColumns: TableColumn[] = [
+  {
+      key: "name",
+      label: "Tên sản phẩm",
+      enableEdit: false,
+      enableCreate:true,
+      hidden: false,
+      width: 500,
+      required: true,
+      sortable: true,
+      showSearch: true,
+      inputType: "text",
+      dropdownData: null,
   },
-  message: "",
-});
+  {
+      key: "description",
+      label: "Miêu tả",
+      enableEdit: false,
+      enableCreate:true,
+      hidden: false,
+      width: 500,
+      required: true,
+      sortable: true,
+      showSearch: false,
+      inputType: "text",
+      dropdownData: null,
+  },
+]
 
-let searchRequest: SearchRequest = reactive({
-  Filters: [
-    {
-      FieldName: "IsDelete",
-      Value: "",
-    },
-  ] as Filter[],
-  SortByInfo: undefined,
-  PageIndex: 1,
-  PageSize: 10,
-});
-SearchProduct(searchRequest).then((resule) => {
-  Data.value = resule;
-});
-async function install() {
-  // Lấy dữ liệu từ API
-  var response = await axiosInstance.post(
-    "Product/Download",
-      searchRequest,
-    {
-      responseType: "blob"
-    }
-  );
-  const blob = new Blob([response.data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
-        const url = URL.createObjectURL(blob);
 
-        const link = document.createElement('a');
-        link.href = url;
-        link.setAttribute('download', 'file.xlsx');
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-}
 </script>

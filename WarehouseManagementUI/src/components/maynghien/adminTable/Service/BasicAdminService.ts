@@ -1,24 +1,17 @@
 
-// @ts-ignore
-import { AppResponse } from '../../../../models/AppResponse.js'
+import { AppResponse } from '../../../../Models/AppResponse'
 
-// @ts-ignore
 import { SearchRequest } from '../../BaseModels/SearchRequest.js'
 
-// @ts-ignore
-import { SearchResponse } from '../../../../Models/Maynghien/Models/Response/SearchResponse.js'
-// @ts-ignore
-import { axiosInstance } from "../../../../Services/axiosConfig.js"
-// @ts-ignore
-import Filter from "../../../../Models/Maynghien/Models/Request/SearchModels/Filter.js";
-// @ts-ignore
-import SortByInfo from "../../../../Models/Maynghien/Models/Request/SearchModels/SortByInfo.js";
+import { SearchResponse } from '../../BaseModels/SearchResponse'
+import { axiosInstance } from "../../../../Service/axiosConfig"
+import {Filter} from "../../BaseModels/Filter";
+import {SortByInfo} from "../../BaseModels/SortByInfo";
 
 
-// @ts-ignore
-import { TableColumn } from '../Models/TableColumn.ts'
-// @ts-ignore
-import { SearchDTOItem } from '../Models/SearchDTOItem.ts'
+
+import { TableColumn } from '../Models/TableColumn.js'
+import { SearchDTOItem } from '../Models/SearchDTOItem.js'
 
 
 export const handleAPISearch = async (model: SearchRequest, apiurl: string): Promise<AppResponse<SearchResponse<SearchDTOItem[] | undefined>>> => {
