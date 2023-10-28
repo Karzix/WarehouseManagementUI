@@ -99,7 +99,7 @@ import type { SearchResponse } from "@/Models/Request/SearchResponse";
 import type { SearchRequest } from "@/Models/Request/ShearchRequest";
 import { SearchProductRemainming } from "@/Service/ProductRemainming/Search";
 import { SearchWarehouse } from "@/Service/Warehouse/Search";
-import type { AppResponse } from "@/models/AppResponse";
+import type { AppResponse } from "@/Models/AppResponse";
 import { reactive, ref, watch } from "vue";
 import { Search } from "@element-plus/icons-vue";
 import { CreateOutboundReceipt } from "@/Service/OutboundReceipt/Create";
@@ -195,10 +195,10 @@ const remoteMethodProduct = (query: string) => {
           item.productName?.toLowerCase().includes(query.toLowerCase())
         ) ?? [];
     }, 200);
-    QuantityProdcut.value.slice(0,0);
-    listProductRemainmingRef.value.forEach((item)=>{
-      QuantityProdcut.value.push(1);
-    })
+    // QuantityProdcut.value.slice(0,0);
+    // listProductRemainmingRef.value.forEach((item)=>{
+    //   QuantityProdcut.value.push(1);
+    // })
   } else {
     listProductRemainmingRef.value = listProductRemainming.data?.data ?? [];
   }
@@ -233,6 +233,12 @@ watch(OutboundReceipt, () => {
           (exportProduct) => exportProduct.productId === item.productId
         )
     ) ?? [];
+    console.log(QuantityProdcut)
+    QuantityProdcut.value = [];
+    listProductRemainmingRef.value.forEach((item)=>{
+      QuantityProdcut.value.push(1);
+    })
+    console.log(QuantityProdcut)
 });
 </script>
 <style scoped>

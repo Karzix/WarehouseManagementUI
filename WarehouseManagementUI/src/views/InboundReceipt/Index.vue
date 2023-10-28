@@ -45,7 +45,7 @@
     <el-button :icon="Download" @click="DownloadExcel()">In</el-button>
   </div>
   <el-table :data="tableData.data?.data" style="width: 100%">
-    <el-table-column prop="supplierName" label="Supplier" width="180" />
+    <el-table-column prop="supplierName" label="Nhà cung cấp" width="180" />
     <el-table-column prop="warehouseName" label="Warehouse" width="180" />
     <el-table-column prop="createdOn" label="CreateOn">
       <template #default="{ row }">
@@ -173,7 +173,7 @@ function DownloadExcel() {
       const blob = new Blob([data], { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" });
 
       // Tải file về máy
-      const filename = "InboundReceipt"+Date.now.toString()+".xlsx";
+      const filename = "InboundReceipt"+new Date().toLocaleDateString("vi-GB")+".xlsx";
       const link = document.createElement("a");
       link.href = window.URL.createObjectURL(blob);
       link.download = filename;

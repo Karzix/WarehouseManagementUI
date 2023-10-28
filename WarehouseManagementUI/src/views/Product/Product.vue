@@ -1,19 +1,19 @@
 <template>
   <Suspense>
-      <BasicAdminFormVue :tableColumns="tableColumns" :apiName="'Product'" :allowAdd="true" :allowDelete="true"
-          title="Sản phẩm"
-          :allowEdit="true"></BasicAdminFormVue>
+    <BasicAdminFormVue :tableColumns="tableColumns" :apiName="'Product'" :allowAdd="true" :allowDelete="true" title="User"
+            :CustomActions="CustomActions" :allowEdit="true"></BasicAdminFormVue>
   </Suspense>
 </template>
 
 <script setup lang="ts">
 import BasicAdminFormVue from '@/components/maynghien/adminTable/BasicAdminForm.vue';
 import { TableColumn } from '@/components/maynghien/adminTable/Models/TableColumn'
+import { ApiActionType, CustomAction, CustomActionDataType } from '@/components/maynghien/adminTable/Models/CustomAction';
 const tableColumns: TableColumn[] = [
   {
       key: "name",
       label: "Tên sản phẩm",
-      enableEdit: false,
+      enableEdit: true,
       enableCreate:true,
       hidden: false,
       width: 500,
@@ -26,7 +26,7 @@ const tableColumns: TableColumn[] = [
   {
       key: "description",
       label: "Miêu tả",
-      enableEdit: false,
+      enableEdit: true,
       enableCreate:true,
       hidden: false,
       width: 500,
@@ -37,6 +37,8 @@ const tableColumns: TableColumn[] = [
       dropdownData: null,
   },
 ]
+const CustomActions: CustomAction[] = ([
 
+]);
 
 </script>

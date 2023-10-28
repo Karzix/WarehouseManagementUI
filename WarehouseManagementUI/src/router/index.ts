@@ -119,7 +119,11 @@ const router = createRouter({
         {
           path: "",
           component: InboundReceipt,
-        }
+        },
+        {
+          path: "Create",
+          component: CreateInboundReceipt,
+        },
       ],
     },
     {

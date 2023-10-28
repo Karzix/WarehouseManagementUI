@@ -1,11 +1,12 @@
 
 <template>
   <MnActionPane :allowAdd="true" :tableColumns="tableColumns" :isEdit="isEditting"
-    @onBtnSearchClicked="handleBtnSearchClicked" @onBtnAddClicked="handleOpenCreate" :openDialog="openDialogCreate">
+    @onBtnSearchClicked="handleBtnSearchClicked" @onBtnAddClicked="handleOpenCreate"
+    :CustomActions="CustomButtons" :openDialog="openDialogCreate">
   </MnActionPane>
   <MnTable :columns="tableColumns" :datas="datas" :onSaved="handleSaved" :enableEdit="allowEdit"
     :enableDelete="allowDelete" :onCloseClicked="handleOnEditCloseClicked" @onEdit="handleEdit"
-    @onDelete="handleDelete" />
+    @onDelete="handleDelete" :CustomActions="CustomButtons" />
   <el-pagination small background layout="prev, pager, next" :total="totalItem" :page-size="10"
     @current-change="handlePageChange" :current-page="searchRequest.PageIndex" class="mt-4" />
   Found {{ totalItem }} results. Page {{ searchRequest.PageIndex }} of total {{ totalPages }} pages
@@ -18,28 +19,38 @@
   
 <script setup lang="ts">
 
+// @ts-ignore
 import MnTable from './MnTable.vue'
 
+// @ts-ignore
 import MnActionPane from './MnActionPane.vue'
+// @ts-ignore
 import MnEditItem from './MnEditItem.vue'
 
-import { ref, provide } from 'vue';
-import { TableColumn } from './Models/TableColumn'
-import { SearchDTOItem } from './Models/SearchDTOItem'
+import { ref, watch } from 'vue';
+// @ts-ignore
+import { TableColumn } from './Models/TableColumn.ts'
+// @ts-ignore
+import { SearchDTOItem } from './Models/SearchDTOItem.ts'
 
-import { handleAPIDelete, handleAPISearch } from './Service/BasicAdminService'
+// @ts-ignore
+import { handleAPIDelete, handleAPISearch } from './Service/BasicAdminService.ts'
 
+// @ts-ignore
 import { Filter } from '../BaseModels/Filter';
+// @ts-ignore
 import { SearchResponse } from '../BaseModels/SearchResponse';
 import { SearchRequest } from '../BaseModels/SearchRequest';
 import type { AppResponse } from '@/Models/AppResponse';
+// @ts-ignore
 import { ElMessage } from 'element-plus';
+import type { CustomAction } from './Models/CustomAction';
 //#region Method
 
 const Search = async () => {
   var searchApiResponse = await handleAPISearch(searchRequest, props.apiName);
   if (searchApiResponse.isSuccess) {
-    let dataresponse: SearchResponse<SearchDTOItem[]> = searchApiResponse.data;
+    let dataresponse = searchApiResponse.data as SearchResponse<SearchDTOItem[]>;
 
     if (dataresponse != undefined && dataresponse.data != undefined && dataresponse.data.length > 0) {
       datas.value = dataresponse.data;
@@ -69,6 +80,7 @@ const props = defineProps<{
   allowEdit: boolean;
   allowDelete: boolean;
   title:string;
+  CustomActions:CustomAction[];
 }>();
 let datas = ref<SearchDTOItem[]>([]);
 const totalPages = ref(0);
@@ -81,6 +93,9 @@ let searchRequest: SearchRequest = {
   filters: undefined,
   SortByInfo: undefined
 }
+const CustomButtons = ref<CustomAction[]>([{}]);
+const CustomRowActions = ref<CustomAction[]>([{}]);
+
 await Search();
 //#endregion
 //#region variable
@@ -153,4 +168,10 @@ const handlePageChange = async (value: number) => {
   await Search();
 }
 //#endregion
+
+watch(() => props.CustomActions, () => {
+    CustomButtons.value = props.CustomActions.filter(m => m.IsRowAction == false);
+    CustomRowActions.value = props.CustomActions.filter(m => m.IsRowAction == true);
+
+}, { immediate: true })
 </script>

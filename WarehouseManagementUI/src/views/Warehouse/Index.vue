@@ -2,12 +2,14 @@
   <Suspense>
       <BasicAdminFormVue :tableColumns="tableColumns" :apiName="'Warehouse'" :allowAdd="true" :allowDelete="true"
           title="Kho"
+          :CustomActions="CustomActions"
           :allowEdit="true"></BasicAdminFormVue>
   </Suspense>
 </template>
 
 <script setup lang="ts">
 import BasicAdminFormVue from '@/components/maynghien/adminTable/BasicAdminForm.vue';
+import { ApiActionType, CustomAction, CustomActionDataType } from '@/components/maynghien/adminTable/Models/CustomAction';
 import { TableColumn } from '@/components/maynghien/adminTable/Models/TableColumn'
 const tableColumns: TableColumn[] = [
   {
@@ -64,6 +66,7 @@ const tableColumns: TableColumn[] = [
   },
 
 ]
-
+const CustomActions: CustomAction[] = ([
+]);
 
 </script>

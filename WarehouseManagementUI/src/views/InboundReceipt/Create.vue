@@ -116,7 +116,7 @@ import { SearchWarehouse } from "@/Service/Warehouse/Search";
 import { SearchSupplier } from "@/Service/Supplier/GetAllSupplier";
 import { WarehouseDtos } from "@/Models/Dtos/WarehouseDtos";
 import type { SupplierDtos } from "@/Models/Dtos/SupplierDtos";
-import type { AppResponse } from "@/models/AppResponse";
+import type { AppResponse } from "@/Models/AppResponse";
 import type { InboundReceiptDtos } from "@/Models/Dtos/InboundReceiptDtos";
 import { ImportProductDtos } from "@/Models/Dtos/ImportProductDtos";
 //@ts-ignore
