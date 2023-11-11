@@ -1,6 +1,5 @@
-
-import {Filter} from "../../maynghien/BaseModels/Filter";
-import {SortByInfo} from "../../maynghien/BaseModels/SortByInfo";
+import Filter from '../BaseModels/Filter';
+import SortByInfo from "../BaseModels/SortByInfo";
 
 
 export class SearchRequest {
@@ -8,5 +7,5 @@ export class SearchRequest {
     PageIndex: number | undefined;
     PageSize:number |undefined;
     filters:Filter[]|undefined;
-    SortByInfo:SortByInfo|undefined;
+    SortBy:SortByInfo|undefined;
 }

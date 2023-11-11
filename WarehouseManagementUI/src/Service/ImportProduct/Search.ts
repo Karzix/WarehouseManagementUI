@@ -3,9 +3,10 @@ import { AppResponse } from "@/Models/AppResponse";
 import { SearchRequest } from "@/Models/Request/ShearchRequest";
 import type { SearchResponse } from "@/Models/Request/SearchResponse";
 import type { InboundReceiptDtos } from "@/Models/Dtos/InboundReceiptDtos";
+import type { ImportProductDtos } from "@/Models/Dtos/ImportProductDtos";
 
-export const SearchInboundReceipt =async (model:SearchRequest): Promise<AppResponse<SearchResponse<InboundReceiptDtos>>> =>{
-    let result :AppResponse<SearchResponse<InboundReceiptDtos>>={
+export const SearchImportProduct =async (model:SearchRequest): Promise<AppResponse<SearchResponse<ImportProductDtos>>> =>{
+    let result :AppResponse<SearchResponse<ImportProductDtos>>={
         isSuccess : false,
         message : "",
         data : {
@@ -17,10 +18,9 @@ export const SearchInboundReceipt =async (model:SearchRequest): Promise<AppRespo
         }
     };
     try{
-    await axiosInstance.post("InboundReceipt/search", model)
+    await axiosInstance.post("ImportProduct/search", model)
     .then((listProduct) => {
       result.data = listProduct.data.data;
-      result.isSuccess = listProduct.data.isSuccess;
     });
     }
     catch(ex){

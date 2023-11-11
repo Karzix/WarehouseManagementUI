@@ -103,6 +103,7 @@ import type { AppResponse } from "@/Models/AppResponse";
 import { reactive, ref, watch } from "vue";
 import { Search } from "@element-plus/icons-vue";
 import { CreateOutboundReceipt } from "@/Service/OutboundReceipt/Create";
+import { UpdateProductRemainming } from "@/Service/ProductRemainming/Update";
 
 const listWarehouseRef = ref<WarehouseDtos[]>([]);
 const listProductRemainmingRef = ref<ProductRemainingDtos[]>([]);
@@ -210,6 +211,22 @@ function createOutboundReceipt() {
   CreateOutboundReceipt(OutboundReceipt).then((result) => {
     console.log(result);
   });
+
+  OutboundReceipt.listExportProductDtos?.forEach((item) => {
+    const productRemaining: ProductRemainingDtos = {
+      id: undefined,
+      quantity: -1* (item.quantity ?? 0),
+      productId: item.productId ?? 0,
+      supplierId: item.supplierId ?? 0,
+      productName: item.productName ?? "",
+      supplierName: item.supplierName ?? "",
+      warehouseId: Number(Warehouse.value),
+      warehouseName: "",
+    };
+    UpdateProductRemainming(productRemaining).then((resule) => {
+      console.log(resule.data);
+    })
+  })
 }
 function addExportProduct(productId : number,supplierId : number, quantity : number) {
   var exportProduct = new ExportProductDtos();

@@ -1,4 +1,4 @@
-export class Filter {
+export default class Filter {
 
     FieldName: string | undefined;
     DisplayName: string | undefined;

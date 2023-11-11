@@ -16,6 +16,9 @@ import InboundReceipt from "../views/InboundReceipt/Index.vue";
 import Warehouse from "../views/Warehouse/Index.vue";
 import CreateOutboundReceipt from "../views/OutboundReceipt/Create.vue";
 import CreateInboundReceipt from "../views/InboundReceipt/Create.vue";
+import InboundReceiptDeatail from "../views/InboundReceipt/Deatail.vue";
+import OutboundReceipt from "../views/OutboundReceipt/Index.vue";
+import OutboundReceiptDeatail from "../views/OutboundReceipt/Deatail.vue";
 import Cookies from "js-cookie";
 
 const router = createRouter({
@@ -124,6 +127,10 @@ const router = createRouter({
           path: "Create",
           component: CreateInboundReceipt,
         },
+        {
+          path: "Deatail/:Id",
+          component: InboundReceiptDeatail,
+        },
       ],
     },
     {
@@ -144,12 +151,16 @@ const router = createRouter({
       children: [
         {
           path: "",
-          component: InboundReceipt,
+          component: OutboundReceipt,
         },
         {
           path: "Create",
           component: CreateOutboundReceipt,
         },
+        {
+          path: "Deatail/:Id",
+          component: OutboundReceiptDeatail,
+        }
       ],
     },
   ],

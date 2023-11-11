@@ -23,5 +23,5 @@ export enum CustomActionDataType {
     MultiRowId, FullRow, RowId
 }
 export enum ApiActionType {
-    POST, GET, PUT, DELETE
+    POST, GET, PUT, DELETE, LINK
 }

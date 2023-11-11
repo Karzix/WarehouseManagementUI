@@ -58,7 +58,23 @@
         }}
       </template>
     </el-table-column>
+    <el-table-column fixed="right" label="Operations" width="120">
+      <template #default="scope">
+        <el-button
+          link
+          type="primary"
+          size="small"
+          @click="Deatail(scope.row.id)"
+          >Detail</el-button
+        >
+      </template>
+    </el-table-column>
   </el-table>
+  <div style="display: flex">
+    <el-pagination small background layout="prev, pager, next" :total="totalItem" :page-size="10"
+    @current-change="handlePageChange" :current-page="searchRequest.PageIndex" class="mt-4" />
+    Found {{ totalItem }} results. Page {{ searchRequest.PageIndex }} of total {{ totalPages }} pages
+  </div>
 </template>
 <script setup lang="ts">
 import { reactive, ref } from "vue";
@@ -70,8 +86,11 @@ import type { Filter } from "@/Models/Request/Filter";
 import type { SearchResponse } from "@/Models/Request/SearchResponse";
 import { SearchInboundReceipt } from "../../Service/InboundReceipt/Search";
 import type { SearchRequest } from "@/Models/Request/ShearchRequest";
-import { Search, Download } from "@element-plus/icons-vue";
+import {Search, Download } from "@element-plus/icons-vue";
 import { axiosInstance } from "@/Service/axiosConfig";
+import router from "@/router";
+import { useRouter } from "vue-router";
+import type { SearchDTOItem } from "@/components/maynghien/adminTable/Models/SearchDTOItem";
 const filters = [
   {
     text: "Ngày",
@@ -113,12 +132,22 @@ let searchRequest = reactive<SearchRequest>({
   PageIndex: 1,
   PageSize: 10,
 });
-
+const totalPages = ref(0);
+const totalItem = ref(10);
 SearchInboundReceipt(searchRequest).then((resule) => {
   tableData.value = resule;
   console.log(tableData.value.data?.data);
+  console.log(tableData.value);
+  if (resule.data?.totalPages != undefined)
+        totalPages.value = resule.data?.totalPages;
+      else
+        totalPages.value = 0;
+      if (resule.data?.totalRows != undefined) {
+        totalItem.value = resule.data?.totalRows;
+      }
+      else
+        totalItem.value = 0;
 });
-
 function SeachDate() {
   var FieldName = filterBy.value;
   var value = "";
@@ -132,9 +161,19 @@ function SeachDate() {
   console.log(value);
   FindFilter(FieldName, value);
   SearchInboundReceipt(searchRequest).then((resule) => {
-    tableData.value = resule;
-    console.log(tableData.value.data?.data);
-  });
+  tableData.value = resule;
+  console.log(tableData.value.data?.data);
+  console.log(tableData.value);
+  if (resule.data?.totalPages != undefined)
+        totalPages.value = resule.data?.totalPages;
+      else
+        totalPages.value = 0;
+      if (resule.data?.totalRows != undefined) {
+        totalItem.value = resule.data?.totalRows;
+      }
+      else
+        totalItem.value = 0;
+});
 }
 
 function FindFilter(FieldName: string, value: string) {
@@ -170,15 +209,38 @@ function DownloadExcel() {
     .then((response) => {
       data = response.data;
       // Chuyển dữ liệu thành một đối tượng Blob
-      const blob = new Blob([data], { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" });
+      const blob = new Blob([data], {
+        type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+      });
 
       // Tải file về máy
-      const filename = "InboundReceipt"+new Date().toLocaleDateString("vi-GB")+".xlsx";
+      const filename =
+        "InboundReceipt" + new Date().toLocaleDateString("vi-GB") + ".xlsx";
       const link = document.createElement("a");
       link.href = window.URL.createObjectURL(blob);
       link.download = filename;
       link.click();
     });
+}
+function Deatail(Id: any) {
+  router.push("/InboundReceipt/Deatail/" + Id.toString());
+}
+const handlePageChange = async (value: number) => {
+  searchRequest.PageIndex = value;
+  await SearchInboundReceipt(searchRequest).then((resule) => {
+  tableData.value = resule;
+  console.log(tableData.value.data?.data);
+  console.log(tableData.value);
+  if (resule.data?.totalPages != undefined)
+        totalPages.value = resule.data?.totalPages;
+      else
+        totalPages.value = 0;
+      if (resule.data?.totalRows != undefined) {
+        totalItem.value = resule.data?.totalRows;
+      }
+      else
+        totalItem.value = 0;
+});
 }
 </script>
 <style scoped>

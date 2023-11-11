@@ -67,6 +67,14 @@ const tableColumns: TableColumn[] = [
 
 ]
 const CustomActions: CustomAction[] = ([
+    {
+        ActionName: "Deatail",
+        ActionLabel: "Chi tiết",
+        ApiAction: "",
+        ApiActiontype:ApiActionType.LINK,
+        IsRowAction: true,
+        DataType: CustomActionDataType.RowId,
+    }
 ]);
 
 </script>

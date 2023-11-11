@@ -1,17 +1,18 @@
-
 import { AppResponse } from '../../../../Models/AppResponse'
 
 import { SearchRequest } from '../../BaseModels/SearchRequest.js'
 
-import { SearchResponse } from '../../BaseModels/SearchResponse'
-import { axiosInstance } from "../../../../Service/axiosConfig"
-import {Filter} from "../../BaseModels/Filter";
-import {SortByInfo} from "../../BaseModels/SortByInfo";
+import { SearchResponse } from '../../BaseModels/SearchResponse.js'
+import { axiosInstance } from "@/Service/axiosConfig"
+import Filter from '../../BaseModels/Filter.js'
+import SortByInfo from '../../BaseModels/SortByInfo.js';
 
 
-
-import { TableColumn } from '../Models/TableColumn.js'
-import { SearchDTOItem } from '../Models/SearchDTOItem.js'
+import { TableColumn } from '../Models/TableColumn'
+import { SearchDTOItem } from '../Models/SearchDTOItem'
+import { ApiActionType, CustomAction, CustomActionResponse } from '../Models/CustomAction.js'
+import type { AxiosResponse } from 'axios'
+import router from '@/router'
 
 
 export const handleAPISearch = async (model: SearchRequest, apiurl: string): Promise<AppResponse<SearchResponse<SearchDTOItem[] | undefined>>> => {
@@ -111,6 +112,78 @@ export const handleAPIDelete = async (id: string, apiurl: string): Promise<AppRe
         const postResult = await axiosInstance.delete(deleteUrl);
         console.log(postResult.data);
         const responseObject = postResult.data
+        resust = responseObject;
+        if (resust.isSuccess) {
+            return resust;
+        }
+        else {
+            console.log(resust.message);
+            return resust;
+        }
+    } catch (error) {
+        console.error(error);
+
+    }
+    return resust;
+
+}
+
+
+export const handleAPICustom = async (model: SearchDTOItem, action: CustomAction, ActionUrl: string): Promise<AppResponse<CustomActionResponse>> => {
+
+    let resust: AppResponse<CustomActionResponse> = ({
+        isSuccess: false,
+        message: '',
+        data: undefined
+    });
+
+    try {
+        let postResult: any = "";
+        if(action.ApiActiontype != undefined && action.ApiActiontype == ApiActionType.LINK){
+            router.push(ActionUrl+"/"+model.id);
+        }
+        if (action.ApiActiontype != undefined && action.ApiActiontype == ApiActionType.PUT) {
+            postResult = await axiosInstance.put(ActionUrl, model);
+        }
+        if (action.ApiActiontype != undefined && action.ApiActiontype == ApiActionType.POST) {
+            postResult = await axiosInstance.post(ActionUrl, model);
+        }
+        if (action.ApiActiontype != undefined && action.ApiActiontype == ApiActionType.DELETE) {
+            postResult = await axiosInstance.delete(ActionUrl, model);
+        }
+        if (action.ApiActiontype != undefined && action.ApiActiontype == ApiActionType.GET) {
+            postResult = await axiosInstance.get(ActionUrl + "/" + model.id);
+        }
+
+        console.log(postResult.data);
+        const responseObject = postResult.data
+        resust = responseObject;
+        if (resust.isSuccess) {
+            return resust;
+        }
+        else {
+            console.log(resust.message);
+            return resust;
+        }
+    } catch (error) {
+        console.error(error);
+
+    }
+    return resust;
+
+}
+export const handleAPIGetDropdownList = async (apiurl: string): Promise<AppResponse<any[] | undefined>> => {
+
+    let resust: AppResponse<SearchDTOItem[] | undefined> = ({
+        isSuccess: false,
+        message: '',
+        data: undefined
+    });
+
+    try {
+        const listResult = await axiosInstance.get(apiurl);
+        
+        const responseObject = listResult.data
         resust = responseObject;
         if (resust.isSuccess) {
             return resust;

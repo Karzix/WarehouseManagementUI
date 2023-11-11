@@ -1,19 +1,18 @@
 
 <template>
   <MnActionPane :allowAdd="true" :tableColumns="tableColumns" :isEdit="isEditting"
-    @onBtnSearchClicked="handleBtnSearchClicked" @onBtnAddClicked="handleOpenCreate"
-    :CustomActions="CustomButtons" :openDialog="openDialogCreate">
+    @onBtnSearchClicked="handleBtnSearchClicked" @onBtnAddClicked="handleOpenCreate" :CustomActions="CustomButtons"
+    :openDialog="openDialogCreate">
   </MnActionPane>
   <MnTable :columns="tableColumns" :datas="datas" :onSaved="handleSaved" :enableEdit="allowEdit"
-    :enableDelete="allowDelete" :onCloseClicked="handleOnEditCloseClicked" @onEdit="handleEdit"
-    @onDelete="handleDelete" :CustomActions="CustomButtons" />
+    :enableDelete="allowDelete" :onCloseClicked="handleOnEditCloseClicked" @onEdit="handleEdit" @onDelete="handleDelete"
+    :CustomActions="CustomRowActions" @on-custom-action="handleCustomAction" @onSortChange="handleSortChange" />
   <el-pagination small background layout="prev, pager, next" :total="totalItem" :page-size="10"
     @current-change="handlePageChange" :current-page="searchRequest.PageIndex" class="mt-4" />
   Found {{ totalItem }} results. Page {{ searchRequest.PageIndex }} of total {{ totalPages }} pages
 
-  
-  <MnEditItem ref="MnEdit" :columns="tableColumns" :apiName="apiName" :openDialog="openDialogCreate"
-  :title="title"
+
+  <MnEditItem ref="MnEdit" :columns="tableColumns" :apiName="apiName" :openDialog="openDialogCreate" :title="title"
     :editItem="EdittingItem" :isEdit="isEditting" @onSaved="handleSaved" @onCloseClicked="handleOnEditCloseClicked" />
 </template>
   
@@ -34,7 +33,7 @@ import { TableColumn } from './Models/TableColumn.ts'
 import { SearchDTOItem } from './Models/SearchDTOItem.ts'
 
 // @ts-ignore
-import { handleAPIDelete, handleAPISearch } from './Service/BasicAdminService.ts'
+import { handleAPICustom, handleAPIDelete, handleAPISearch } from './Service/BasicAdminService.ts'
 
 // @ts-ignore
 import { Filter } from '../BaseModels/Filter';
@@ -44,13 +43,14 @@ import { SearchRequest } from '../BaseModels/SearchRequest';
 import type { AppResponse } from '@/Models/AppResponse';
 // @ts-ignore
 import { ElMessage } from 'element-plus';
-import type { CustomAction } from './Models/CustomAction';
+import type { CustomAction, CustomActionResponse } from './Models/CustomAction';
+import { SortByInfo } from '../BaseModels/SortByInfo';
 //#region Method
 
 const Search = async () => {
   var searchApiResponse = await handleAPISearch(searchRequest, props.apiName);
-  if (searchApiResponse.isSuccess) {
-    let dataresponse = searchApiResponse.data as SearchResponse<SearchDTOItem[]>;
+  if (searchApiResponse.isSuccess && searchApiResponse.data != undefined) {
+    let dataresponse: SearchResponse<SearchDTOItem[] | undefined> = searchApiResponse.data;
 
     if (dataresponse != undefined && dataresponse.data != undefined && dataresponse.data.length > 0) {
       datas.value = dataresponse.data;
@@ -79,9 +79,13 @@ const props = defineProps<{
   allowAdd: boolean;
   allowEdit: boolean;
   allowDelete: boolean;
-  title:string;
-  CustomActions:CustomAction[];
+  title: string;
+  CustomActions: CustomAction[];
 }>();
+const emit = defineEmits<{
+
+  (e: 'onCustomAction', item: CustomActionResponse): void;
+}>()
 let datas = ref<SearchDTOItem[]>([]);
 const totalPages = ref(0);
 const totalItem = ref(10);
@@ -91,7 +95,7 @@ let searchRequest: SearchRequest = {
   PageIndex: 1,
   PageSize: 10,
   filters: undefined,
-  SortByInfo: undefined
+  SortBy: undefined
 }
 const CustomButtons = ref<CustomAction[]>([{}]);
 const CustomRowActions = ref<CustomAction[]>([{}]);
@@ -147,6 +151,7 @@ const handleDelete = async (id: string) => {
       message: 'row deleted.',
       type: 'success',
     });
+    await Search();
   }
   else {
     ElMessage({
@@ -155,13 +160,41 @@ const handleDelete = async (id: string) => {
     });
   }
 }
+const handleSortChange = async (event: any) => {
+  const sortByInfo: SortByInfo = {
+    FieldName:event.column.property,
+    Ascending:event.column.order!="descending"
 
+  }
+  searchRequest.SortBy = sortByInfo;
+  searchRequest.PageIndex=1;
+  await Search();
+};
 const SelectedId = ref("");
 //provide('OpenDialogCreateItem', openDialogCreate);
 const handleEdit = async (item: SearchDTOItem) => {
   EdittingItem.value = { ...item };
   isEditting.value = true;
   openDialogCreate.value = true;
+}
+const handleCustomAction = async (item: CustomActionResponse) => {
+  if (item.Action.ApiAction != undefined) {
+    var url: string = props.apiName + "/" + item.Action.ActionName;
+    var apiResult = await handleAPICustom(item.Data, item.Action, url);
+    console.log(apiResult);
+
+    if (!apiResult.isSuccess) {
+      console.log(apiResult);
+      return;
+    }
+    else {
+      searchRequest.PageIndex = 1;
+      await Search();
+    }
+  }
+  else {
+    emit("onCustomAction", item);
+  }
 }
 const handlePageChange = async (value: number) => {
   searchRequest.PageIndex = value;
@@ -170,8 +203,8 @@ const handlePageChange = async (value: number) => {
 //#endregion
 
 watch(() => props.CustomActions, () => {
-    CustomButtons.value = props.CustomActions.filter(m => m.IsRowAction == false);
-    CustomRowActions.value = props.CustomActions.filter(m => m.IsRowAction == true);
-
+  CustomButtons.value = props.CustomActions.filter(m => m.IsRowAction == false);
+  CustomRowActions.value = props.CustomActions.filter(m => m.IsRowAction == true);
+  console.log(CustomRowActions);
 }, { immediate: true })
 </script>

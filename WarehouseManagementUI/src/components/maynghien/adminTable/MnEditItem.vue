@@ -3,19 +3,19 @@
 
         <div class="editform" v-if="model != undefined">
             <div v-for="column in columns" :key="column.key">
-                <div v-if="(isEdit && column.enableEdit == true) || (!isEdit && column.enableCreate == true)"  class="MnEditItem-itemInput">
+                <div v-if="(isEdit && column.enableEdit == true) || (!isEdit && column.enableCreate == true)">
                     <!-- Use double curly braces to bind variable values in templates -->
                     <label>{{ column.label }}</label>
 
                     <el-input v-model="model[column.key]" :placeholder="column.label"
-                        v-if="column.inputType == undefined || column.inputType == 'text'" />
+                        v-if="column.inputType == undefined || column.inputType == 'text' || column.inputType=='number'"  
+                        :type="column.inputType" />
 
 
                     <MnDropdown v-if="column.inputType == 'dropdown'" :column="column" @changed="handleUpdateValue"
                    v-model="model[column.key]"
                      >
                     </MnDropdown>
-                    {{ model[column.key]}}
                 </div>
 
             </div>
@@ -34,11 +34,14 @@
   
 <script setup lang="ts">
 import { ref, toRefs, computed, watch, inject } from 'vue';
+// @ts-ignore
 import { ElMessage, ElInput } from 'element-plus';
-import { handleAPICreate, handleAPIUpdate } from './Service/BasicAdminService';
+// @ts-ignore
+import { handleAPICreate, handleAPIUpdate } from './Service/BasicAdminService.ts'
 import type { TableColumn } from './Models/TableColumn';
 import MnDropdown from './Input/MnDropdown.vue';
-import { SearchDTOItem } from './Models/SearchDTOItem';
+// @ts-ignore
+import { SearchDTOItem } from './Models/SearchDTOItem.ts';
 const emit = defineEmits<{
     (e: 'onSaved'): void;
     (e: 'onCloseClicked'): void;
@@ -124,13 +127,7 @@ watch(() => props.editItem, () => {
     margin-right: 0 !important;
     height: 100%;
 }
-.editform {
-    display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap;
-}
-.MnEditItem-itemInput{
-    display: flex;
-    flex-direction: column;
+.editform .el-select {
+    width: 100%;
 }
 </style>
