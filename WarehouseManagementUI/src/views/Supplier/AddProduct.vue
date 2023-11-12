@@ -34,9 +34,9 @@
 import { ref, reactive } from "vue";
 import { ProductDtos } from "@/Models/Dtos/ProductDtos";
 import { SearchProduct } from "../../Service/Product/Search";
-import type { SearchRequest } from "@/components/maynghien/BaseModels/SearchRequest";
+import type { SearchRequest } from "@/Models/Request/ShearchRequest";
 import type { Filter } from "@/Models/Request/Filter";
-import type { AppResponse } from "@/models/AppResponse";
+import type { AppResponse } from "@/Models/AppResponse";
 import type { SearchResponse } from "@/Models/Request/SearchResponse";
 import {
   AddProduct,
@@ -55,11 +55,12 @@ var Data = ref<AppResponse<SearchResponse<ProductDtos>>>({
   },
   message: "",
 });
-let searchRequest: SearchRequest = reactive({
+const searchRequest = reactive<SearchRequest>({
   Filters: [
     {
       FieldName: "IsDelete",
       Value: "",
+      Operation: undefined,
     },
   ] as Filter[],
   SortByInfo: undefined,

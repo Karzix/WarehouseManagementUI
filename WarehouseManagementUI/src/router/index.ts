@@ -19,6 +19,7 @@ import CreateInboundReceipt from "../views/InboundReceipt/Create.vue";
 import InboundReceiptDeatail from "../views/InboundReceipt/Deatail.vue";
 import OutboundReceipt from "../views/OutboundReceipt/Index.vue";
 import OutboundReceiptDeatail from "../views/OutboundReceipt/Deatail.vue";
+import ProductRemainming from '../views/ProductRemainming/Index.vue';
 import Cookies from "js-cookie";
 
 const router = createRouter({
@@ -141,6 +142,10 @@ const router = createRouter({
         {
           path: "",
           component: Warehouse,
+        },
+        {
+          path: "Deatail/:Id",
+          component: ProductRemainming,
         },
       ],
     },

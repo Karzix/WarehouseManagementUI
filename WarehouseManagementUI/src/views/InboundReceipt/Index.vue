@@ -67,13 +67,29 @@
           @click="Deatail(scope.row.id)"
           >Detail</el-button
         >
+        <el-button
+          link
+          type="primary"
+          size="small"
+          @click="Delete(scope.row.id)"
+          >Xóa</el-button
+        >
       </template>
     </el-table-column>
   </el-table>
   <div style="display: flex">
-    <el-pagination small background layout="prev, pager, next" :total="totalItem" :page-size="10"
-    @current-change="handlePageChange" :current-page="searchRequest.PageIndex" class="mt-4" />
-    Found {{ totalItem }} results. Page {{ searchRequest.PageIndex }} of total {{ totalPages }} pages
+    <el-pagination
+      small
+      background
+      layout="prev, pager, next"
+      :total="totalItem"
+      :page-size="10"
+      @current-change="handlePageChange"
+      :current-page="searchRequest.PageIndex"
+      class="mt-4"
+    />
+    Found {{ totalItem }} results. Page {{ searchRequest.PageIndex }} of total
+    {{ totalPages }} pages
   </div>
 </template>
 <script setup lang="ts">
@@ -86,7 +102,7 @@ import type { Filter } from "@/Models/Request/Filter";
 import type { SearchResponse } from "@/Models/Request/SearchResponse";
 import { SearchInboundReceipt } from "../../Service/InboundReceipt/Search";
 import type { SearchRequest } from "@/Models/Request/ShearchRequest";
-import {Search, Download } from "@element-plus/icons-vue";
+import { Search, Download } from "@element-plus/icons-vue";
 import { axiosInstance } from "@/Service/axiosConfig";
 import router from "@/router";
 import { useRouter } from "vue-router";
@@ -139,14 +155,11 @@ SearchInboundReceipt(searchRequest).then((resule) => {
   console.log(tableData.value.data?.data);
   console.log(tableData.value);
   if (resule.data?.totalPages != undefined)
-        totalPages.value = resule.data?.totalPages;
-      else
-        totalPages.value = 0;
-      if (resule.data?.totalRows != undefined) {
-        totalItem.value = resule.data?.totalRows;
-      }
-      else
-        totalItem.value = 0;
+    totalPages.value = resule.data?.totalPages;
+  else totalPages.value = 0;
+  if (resule.data?.totalRows != undefined) {
+    totalItem.value = resule.data?.totalRows;
+  } else totalItem.value = 0;
 });
 function SeachDate() {
   var FieldName = filterBy.value;
@@ -161,19 +174,16 @@ function SeachDate() {
   console.log(value);
   FindFilter(FieldName, value);
   SearchInboundReceipt(searchRequest).then((resule) => {
-  tableData.value = resule;
-  console.log(tableData.value.data?.data);
-  console.log(tableData.value);
-  if (resule.data?.totalPages != undefined)
-        totalPages.value = resule.data?.totalPages;
-      else
-        totalPages.value = 0;
-      if (resule.data?.totalRows != undefined) {
-        totalItem.value = resule.data?.totalRows;
-      }
-      else
-        totalItem.value = 0;
-});
+    tableData.value = resule;
+    console.log(tableData.value.data?.data);
+    console.log(tableData.value);
+    if (resule.data?.totalPages != undefined)
+      totalPages.value = resule.data?.totalPages;
+    else totalPages.value = 0;
+    if (resule.data?.totalRows != undefined) {
+      totalItem.value = resule.data?.totalRows;
+    } else totalItem.value = 0;
+  });
 }
 
 function FindFilter(FieldName: string, value: string) {
@@ -225,23 +235,49 @@ function DownloadExcel() {
 function Deatail(Id: any) {
   router.push("/InboundReceipt/Deatail/" + Id.toString());
 }
+async function Delete(Id: any) {
+  let result: AppResponse<SearchResponse<InboundReceiptDtos>> = {
+    isSuccess: false,
+    message: "",
+    data: {
+      data: undefined,
+      totalPages: undefined,
+      rowsPerPage: undefined,
+      totalRows: undefined,
+      currentPage: undefined,
+    },
+  };
+  try {
+    await axiosInstance
+      .delete("InboundReceipt/" + Id.toString())
+      .then((listProduct) => {
+        result.data = listProduct.data.data;
+        result.isSuccess = listProduct.data.isSuccess;
+      });
+      if(!result.isSuccess){
+        console.log(result.message);
+      }
+      else{
+        alert("Delete success");
+      }
+  } catch (ex) {
+    console.error(ex);
+  }
+}
 const handlePageChange = async (value: number) => {
   searchRequest.PageIndex = value;
   await SearchInboundReceipt(searchRequest).then((resule) => {
-  tableData.value = resule;
-  console.log(tableData.value.data?.data);
-  console.log(tableData.value);
-  if (resule.data?.totalPages != undefined)
-        totalPages.value = resule.data?.totalPages;
-      else
-        totalPages.value = 0;
-      if (resule.data?.totalRows != undefined) {
-        totalItem.value = resule.data?.totalRows;
-      }
-      else
-        totalItem.value = 0;
-});
-}
+    tableData.value = resule;
+    console.log(tableData.value.data?.data);
+    console.log(tableData.value);
+    if (resule.data?.totalPages != undefined)
+      totalPages.value = resule.data?.totalPages;
+    else totalPages.value = 0;
+    if (resule.data?.totalRows != undefined) {
+      totalItem.value = resule.data?.totalRows;
+    } else totalItem.value = 0;
+  });
+};
 </script>
 <style scoped>
 .Date {
