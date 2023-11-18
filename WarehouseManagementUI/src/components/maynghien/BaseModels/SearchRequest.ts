@@ -1,5 +1,6 @@
-import Filter from "../Request/SearchModels/Filter";
-import SortByInfo from "../Request/SearchModels/SortByInfo.js";
+
+import {Filter} from "../../maynghien/BaseModels/Filter";
+import {SortByInfo} from "../../maynghien/BaseModels/SortByInfo";
 
 
 export class SearchRequest {

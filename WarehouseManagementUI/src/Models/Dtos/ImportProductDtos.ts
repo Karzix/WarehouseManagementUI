@@ -1,9 +1,9 @@
 export class ImportProductDtos {
-    id:string|undefined;
-    Quantity:number|undefined;
-    SupplierProductId:string|undefined;
-    SupplierProductName:string|undefined;
-    InboundReceiptId :string|undefined;
-    // InboundReceipt:string|undefined;
-    
+    id:number|undefined;
+    quantity:number = 0;
+    supplierId:number|undefined;
+    supplierName:string|undefined;
+    productId:number|undefined;
+    productName:string|undefined;
+    inboundReceiptId :number|undefined;
 }

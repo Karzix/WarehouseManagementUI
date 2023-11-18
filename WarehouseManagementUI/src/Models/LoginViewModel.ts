@@ -1,6 +1,7 @@
 export class LoginViewModel {
-    UserName:string|undefined;
-    Password:string|undefined;
-    Email:string|undefined;
-    Role:string|unknown;
+    userName: string | undefined;
+    password: string| undefined;
+    email: string|undefined;
+    role: string|unknown;
+    id: string|undefined
 }

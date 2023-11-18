@@ -1,7 +1,7 @@
 export class SupplierProductDtos {
-    id:string|undefined;
-    ProductId:string|undefined;
-    ProductName:string|undefined;
-    SupplierId:string|undefined;
-    SupplierName :string|undefined;
+    id:number|undefined;
+    productId:number|undefined;
+    productName:string|undefined;
+    supplierId:number|undefined;
+    supplierName :string|undefined;
 }

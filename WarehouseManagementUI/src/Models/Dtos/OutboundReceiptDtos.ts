@@ -1,6 +1,10 @@
+import type { ExportProductDtos } from "./ExportProductDtos";
+
 export class OutboundReceiptDtos {
-    id: string|undefined;
-    To:string|undefined;
-    WarehouseId:string|undefined;
-    WarehouseName :string|undefined;
+    id: number|undefined;
+    to:string|undefined;
+    warehouseId:number|undefined;
+    warehouseName :string|undefined;
+
+    listExportProductDtos: ExportProductDtos[]|undefined;
 }
