@@ -1,19 +1,20 @@
 <template>
-    <el-dialog :model-value="openDialog" :title="(isEdit ? 'Edit ' : 'Create ') + title" class="form-dialog" width="30%"
-        @close="emit('onCloseClicked')">
+    <el-dialog :model-value="openDialog" :title="(isEdit?'Edit ':'Create ')+ title" class="form-dialog" width="30%" @close="emit('onCloseClicked')">
 
         <div class="editform" v-if="model != undefined">
             <div v-for="column in columns" :key="column.key">
-                <div v-if="(isEdit && column.enableEdit == true) || (!isEdit && column.enableCreate == true)"
-                    class="MnEditItem-itemInput">
+                <div v-if="(isEdit && column.enableEdit == true) || (!isEdit && column.enableCreate == true)">
                     <!-- Use double curly braces to bind variable values in templates -->
-                    <label class="font-weight-bold">{{ column.label }}</label>
+                    <label>{{ column.label }}</label>
 
                     <el-input v-model="model[column.key]" :placeholder="column.label"
-                        v-if="column.inputType == undefined || column.inputType == 'text'" class="mb-4" />
+                        v-if="column.inputType == undefined || column.inputType == 'text' || column.inputType=='number'"  
+                        :type="column.inputType" />
+
 
                     <MnDropdown v-if="column.inputType == 'dropdown'" :column="column" @changed="handleUpdateValue"
-                        v-model="model[column.key]">
+                   v-model="model[column.key]"
+                     >
                     </MnDropdown>
                 </div>
 
@@ -33,11 +34,14 @@
   
 <script setup lang="ts">
 import { ref, toRefs, computed, watch, inject } from 'vue';
+// @ts-ignore
 import { ElMessage, ElInput } from 'element-plus';
-import { handleAPICreate, handleAPIUpdate } from './Service/BasicAdminService';
+// @ts-ignore
+import { handleAPICreate, handleAPIUpdate } from './Service/BasicAdminService.ts'
 import type { TableColumn } from './Models/TableColumn';
 import MnDropdown from './Input/MnDropdown.vue';
-import { SearchDTOItem } from './Models/SearchDTOItem';
+// @ts-ignore
+import { SearchDTOItem } from './Models/SearchDTOItem.ts';
 const emit = defineEmits<{
     (e: 'onSaved'): void;
     (e: 'onCloseClicked'): void;
@@ -49,7 +53,7 @@ const props = defineProps<{
     apiName: string;
     isEdit: boolean;
     openDialog: boolean;
-    title: string;
+    title:string;
 }>();
 // Use computed to create a filtered model
 const model = ref<SearchDTOItem>(props.editItem);
@@ -107,7 +111,9 @@ const Save = async () => {
     }
 }
 const handleUpdateValue = (key: string, value: string): void => {
+   
     model.value[key] = value;
+    console.log(model.value);
 }
 
 watch(() => props.editItem, () => {
@@ -117,19 +123,11 @@ watch(() => props.editItem, () => {
 
 <style>
 .form-dialog {
-    margin-top: 0 !important;
-    margin-right: 0 !important;
+    margin-top: 0;
+    margin-right: 0;
     height: 100%;
 }
-
-.editform {
-    display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap;
-}
-
-.MnEditItem-itemInput {
-    display: flex;
-    flex-direction: column;
+.editform .el-select {
+    width: 100%;
 }
 </style>

@@ -4,7 +4,7 @@
       >Add Product</el-button
     >
     <div class="m-4 input-Select">
-      <p>Kho:</p>
+      <p style="margin: 0;">Kho:</p>
       <el-select
         v-model="Warehouse"
         clearable

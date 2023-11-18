@@ -3,14 +3,17 @@
       <BasicAdminFormVue :tableColumns="tableColumns" :apiName="'Warehouse'" :allowAdd="true" :allowDelete="true"
           title="Kho"
           :CustomActions="CustomActions"
-          :allowEdit="true"></BasicAdminFormVue>
+          :allowEdit="true"
+          @onCustomAction="ChangePage"
+          ></BasicAdminFormVue>
   </Suspense>
 </template>
 
 <script setup lang="ts">
 import BasicAdminFormVue from '@/components/maynghien/adminTable/BasicAdminForm.vue';
-import { ApiActionType, CustomAction, CustomActionDataType } from '@/components/maynghien/adminTable/Models/CustomAction';
+import { ApiActionType, CustomAction, CustomActionDataType, CustomActionResponse } from '@/components/maynghien/adminTable/Models/CustomAction';
 import { TableColumn } from '@/components/maynghien/adminTable/Models/TableColumn'
+import router from '@/router';
 const tableColumns: TableColumn[] = [
   {
       key: "name",
@@ -67,6 +70,16 @@ const tableColumns: TableColumn[] = [
 
 ]
 const CustomActions: CustomAction[] = ([
+    {
+        ActionName: "Deatail",
+        ActionLabel: "Chi tiết",
+        ApiActiontype:ApiActionType.PUT,
+        IsRowAction: true,
+        DataType: CustomActionDataType.RowId,
+    }
 ]);
-
+function ChangePage(item: CustomActionResponse){
+    if(item.Action.ActionName == "Deatail")
+    router.push("Warehouse/Deatail/" + item.Data.id);
+}
 </script>

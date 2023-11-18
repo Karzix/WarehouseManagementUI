@@ -6,7 +6,7 @@
         <el-table class="admin-table" :data="datas" @sort-change="handleSortChange" border row-key="id" table-layout="auto"
             @row-click="handleRowClick">
             <el-table-column v-for="column in shownCol" :key="column.key" :prop="column.key" :label="column.label"
-                :sortable="column.sorable" :visible="column.hidden == false" />
+                :sortable="column.sorable ? 'custom' : 'false'" :visible="column.hidden == false" />
             <el-table-column label="Operations" v-if="enableDelete || enableEdit">
                 <template #default="scope">
                     <el-button v-if="enableEdit" :icon="Edit" size="small"
@@ -18,7 +18,6 @@
                 </template>
             </el-table-column>
         </el-table>
-
 
     </div>
 </template>
@@ -39,6 +38,7 @@ import {
     Plus,
 } from '@element-plus/icons-vue';
 import { CustomActionResponse, type CustomAction } from './Models/CustomAction';
+import { handleAPICustom } from './Service/BasicAdminService';
 
 const props = defineProps<{
     columns: TableColumn[];
@@ -52,6 +52,7 @@ const emit = defineEmits<{
     (e: 'onEdit', item: SearchDTOItem): void;
     (e: 'onDelete', item: SearchDTOItem): void;
     (e: 'onCustomAction', item: CustomActionResponse): void;
+    (e: 'onSortChange', event: any): void;
 }>()
 const selectedId = ref("");
 
@@ -63,8 +64,9 @@ const shownCol = ref<TableColumn[]>([{}]);
 
 // Perform sorting logic here based on the prop and order
 // You can update the tableData array with sorted data
-const handleSortChange = (column: any, prop: string, order: string) => {
-
+const handleSortChange = (event: any) => {
+    
+    emit('onSortChange', event);
 };
 const getWidth = (column: TableColumn): string => {
     let result: string = "";
@@ -94,15 +96,12 @@ const handleDelete = (index: number, row: SearchDTOItem) => {
     emit("onDelete", row["id"])
 }
 
-const handleCustomAction = (index: number, row: SearchDTOItem, action: CustomAction) => {
-    let response:CustomActionResponse= new CustomActionResponse(action,row);
+const handleCustomAction = async (index: number, row: SearchDTOItem, action: CustomAction) => {
+    let response: CustomActionResponse = new CustomActionResponse(action, row);
 
-    if (action.ApiAction != undefined) {
 
-    }
-    else {
 
-    }
+    emit("onCustomAction", response);
 
 }
 watch(() => props.columns, () => {

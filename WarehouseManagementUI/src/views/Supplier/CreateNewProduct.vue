@@ -6,9 +6,6 @@
     <el-form-item prop="Description" label="Description">
       <el-input v-model="Product.description" type="text" />
     </el-form-item>
-    <el-form-item prop="Quantity" label="Quantity">
-      <el-input v-model="Product.quantity" type="number" />
-    </el-form-item>
     <el-form-item>
       <el-button type="primary" @click="submitForm()">Submit</el-button>
     </el-form-item>

@@ -16,6 +16,10 @@ import InboundReceipt from "../views/InboundReceipt/Index.vue";
 import Warehouse from "../views/Warehouse/Index.vue";
 import CreateOutboundReceipt from "../views/OutboundReceipt/Create.vue";
 import CreateInboundReceipt from "../views/InboundReceipt/Create.vue";
+import InboundReceiptDeatail from "../views/InboundReceipt/Deatail.vue";
+import OutboundReceipt from "../views/OutboundReceipt/Index.vue";
+import OutboundReceiptDeatail from "../views/OutboundReceipt/Deatail.vue";
+import ProductRemainming from '../views/ProductRemainming/Index.vue';
 import Cookies from "js-cookie";
 
 const router = createRouter({
@@ -24,7 +28,7 @@ const router = createRouter({
     {
       path: "/",
       component: Layout,
-      // meta: { requiresAuth: true },
+      meta: { requiresAuth: true },
       children: [
         {
           path: "",
@@ -48,7 +52,7 @@ const router = createRouter({
     {
       path: "/Register",
       component: Layout2,
-      // meta: { requiresAuth: true },
+      meta: { requiresAuth: true },
       children: [
         {
           path: "",
@@ -60,7 +64,7 @@ const router = createRouter({
     {
       path: "/User",
       component: Layout,
-      // meta: { requiresAuth: true },
+      meta: { requiresAuth: true },
       children: [
         {
           path: "",
@@ -72,7 +76,7 @@ const router = createRouter({
     {
       path: "/Product",
       component: Layout,
-      // meta: { requiresAuth: true },
+      meta: { requiresAuth: true },
       children: [
         {
           path: "",
@@ -83,7 +87,7 @@ const router = createRouter({
     {
       path: "/Supplier",
       component: Layout,
-      // meta: { requiresAuth: true },
+      meta: { requiresAuth: true },
       children: [
         {
           path: "",
@@ -114,7 +118,7 @@ const router = createRouter({
     {
       path: "/InboundReceipt",
       component: Layout,
-      // meta: { requiresAuth: true },
+      meta: { requiresAuth: true },
       children: [
         {
           path: "",
@@ -124,32 +128,44 @@ const router = createRouter({
           path: "Create",
           component: CreateInboundReceipt,
         },
+        {
+          path: "Deatail/:Id",
+          component: InboundReceiptDeatail,
+        },
       ],
     },
     {
       path: "/Warehouse",
       component: Layout,
-      // meta: { requiresAuth: true },
+      meta: { requiresAuth: true },
       children: [
         {
           path: "",
           component: Warehouse,
+        },
+        {
+          path: "Deatail/:Id",
+          component: ProductRemainming,
         },
       ],
     },
     {
       path: "/OutboundReceipt",
       component: Layout,
-      // meta: { requiresAuth: true },
+      meta: { requiresAuth: true },
       children: [
         {
           path: "",
-          component: InboundReceipt,
+          component: OutboundReceipt,
         },
         {
           path: "Create",
           component: CreateOutboundReceipt,
         },
+        {
+          path: "Deatail/:Id",
+          component: OutboundReceiptDeatail,
+        }
       ],
     },
   ],
@@ -157,7 +173,7 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
   const isAuthenticated = !!Cookies.get("accessToken");
 
-  if (!isAuthenticated && to.path !== "/login") {
+  if (to.meta.requiresAuth && !isAuthenticated && to.path !== "/login") {
     next({ path: "/login" });
   } else {
     next(); // Continue to the requested route

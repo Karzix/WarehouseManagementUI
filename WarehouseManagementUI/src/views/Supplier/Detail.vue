@@ -1,10 +1,24 @@
 <template>
-  {{ supplier.id }} | {{ supplier.name }} | {{ supplier.email }}
-  <router-link :to="`Edit/${useRoute().params.Id}/AddProduct`">Add product</router-link> | |
-  <router-link :to="`Edit/${useRoute().params.Id}/CreateNewProduct`">Create new product</router-link>
+  <el-row>
+    Tên: {{ supplier.name }}
+    Email: {{ supplier.email }}
+  </el-row>
+  <router-link :to="`Edit/${useRoute().params.Id}/AddProduct`"><el-button type="primary">Thêm sản phẩm</el-button></router-link>
+  <router-link :to="`Edit/${useRoute().params.Id}/CreateNewProduct`"><el-button type="primary">Tạo một sản phẩm mới</el-button></router-link>
   <el-table :data="data" style="width: 100%">
     <el-table-column prop="id" label="id" width="280px" />
     <el-table-column prop="productName" label="product Name" width="280px" />
+    <el-table-column fixed="right" label="" width="120">
+        <template #default="scope">
+          <el-button
+            link
+            type="primary"
+            size="small"
+            @click=""
+            >Xoá</el-button
+          >
+        </template>
+      </el-table-column>
   </el-table>
 </template>
 <script setup lang="ts">

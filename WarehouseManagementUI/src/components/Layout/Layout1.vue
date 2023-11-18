@@ -72,7 +72,7 @@
         <el-header>
           <h4>Warehouse Management</h4>
         </el-header>
-        <el-main class="el-main-view container d-flex flex-column justify-content-around">
+        <el-main class="el-main-view container flex-column justify-content-around">
           <router-view></router-view>
         </el-main>
         <el-footer>@Copyright MyDuyen 2023</el-footer>
@@ -94,8 +94,7 @@ import {
 </script>
 <style>
 .el-main-view {
-  display: flex;
-  align-items: center;
+  
 }
 
 .el-footer {
@@ -151,4 +150,5 @@ import {
 /* .side-bar {
   border-right: 3px solid #ebebeb;
 } */
+
 </style>
