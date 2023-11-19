@@ -123,11 +123,20 @@ watch(() => props.editItem, () => {
 
 <style>
 .form-dialog {
-    margin-top: 0;
-    margin-right: 0;
+    margin-top: 0 !important;
+    margin-right: 0 !important;
     height: 100%;
 }
-.editform .el-select {
-    width: 100%;
+.editform {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+}
+.MnEditItem-itemInput {
+    display: flex;
+    flex-direction: column;
+}
+.editform label {
+    min-width: 200px;
 }
 </style>

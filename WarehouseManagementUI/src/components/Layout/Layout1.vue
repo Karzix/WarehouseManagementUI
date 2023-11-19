@@ -93,32 +93,24 @@ import {
 } from "@element-plus/icons-vue";
 </script>
 <style>
-.el-main-view {
-  
-}
-
 .el-footer {
   display: flex;
   justify-content: end;
   align-items: center;
   font-size: large;
 }
-
 .el-header {
   display: flex;
   font-size: large;
   justify-content: start;
   align-items: center;
 }
-
 .layout1-link span {
   font-size: 14px;
 }
-
 .layout1-link span:hover {
   transform: scale(1.08);
 }
-
 .layout1-link:hover {
   text-decoration: none;
   /* text-transform: capitalize; */
@@ -126,29 +118,20 @@ import {
   /* color: blue; */
   /* font-size: 18px; */
 }
-
 .layout1-li {
   padding: 0 !important;
   text-align: center;
 }
-
 .el-sub-menu__title {
   font-size: 25px !important;
 }
-
 .Home {
   text-decoration: none;
   width: 100%;
   color: black;
   font-size: 25px !important;
 }
-
 .el-row {
   display: block !important;
 }
-
-/* .side-bar {
-  border-right: 3px solid #ebebeb;
-} */
-
 </style>

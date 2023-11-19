@@ -128,19 +128,31 @@ watch(() => props.tableColumns, async () => {
 }, { immediate: true })
 
 </script>
-<style >
+<style scoped>
 .action-pane {
     width: "100%";
     padding: 10px;
 }
-
 .action-pane .buttons {
-    padding: 5px 0px;
+    float: right;
+    text-align: right;
 }
-
-.action-pane .action-input {
-    padding-right:5px;
-    width: 250px !important;
+.action-pane .el-row{
+    display: flex !important;;
 }
-
+button {
+    margin-left: 5px;
+}
+.el-input {
+    max-width: 290px;
+}
+.el-col.el-col-12.buttons.p-1 {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    padding: 0 !important;
+}
+button.el-button {
+    margin: 0;
+}
 </style>
