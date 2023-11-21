@@ -9,7 +9,6 @@
     :CustomActions="CustomRowActions" @on-custom-action="handleCustomAction" @onSortChange="handleSortChange" />
   <el-pagination small background layout="prev, pager, next" :total="totalItem" :page-size="10"
     @current-change="handlePageChange" :current-page="searchRequest.PageIndex" class="mt-4" />
-  Found {{ totalItem }} results. Page {{ searchRequest.PageIndex }} of total {{ totalPages }} pages
 
 
   <MnEditItem ref="MnEdit" :columns="tableColumns" :apiName="apiName" :openDialog="openDialogCreate" :title="title"

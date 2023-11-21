@@ -5,7 +5,7 @@ import { SupplierProductDtos } from "@/Models/Dtos/SupplierProductDtos";
 import router from "@/router";
 
  
-export const CreateNewProduct = async (Product:ProductDtos, supplierId: string): Promise<AppResponse<SupplierProductDtos>> =>{
+export const CreateNewProduct = async (Product:ProductDtos, supplierId: number): Promise<AppResponse<SupplierProductDtos>> =>{
     let resust: AppResponse<SupplierProductDtos> = {
         isSuccess: false,
         message: "",
@@ -17,8 +17,8 @@ export const CreateNewProduct = async (Product:ProductDtos, supplierId: string):
             console.log(respons.data.data.id);
             if(respons.data.isSuccess){
                 var supplierProduct = new SupplierProductDtos();
-                supplierProduct.SupplierId = supplierId;
-                supplierProduct.ProductId = respons.data.data.id;
+                supplierProduct.supplierId = supplierId;
+                supplierProduct.productId = respons.data.data.id;
                 console.log(supplierProduct)
                 var respons2 = await axiosInstance.post('SupplierProduct', supplierProduct)
                 resust.data = respons2.data.data;
@@ -40,7 +40,7 @@ export const CreateNewProduct = async (Product:ProductDtos, supplierId: string):
         }
         return resust;
 }
-export const AddProduct =  async(ProductId: string, SupplierId: string) : Promise<AppResponse<SupplierProductDtos>>=>{
+export const AddProduct =  async(ProductId: number, SupplierId: number) : Promise<AppResponse<SupplierProductDtos>>=>{
     let resust: AppResponse<SupplierProductDtos> = {
         isSuccess: false,
         message: "",
@@ -48,8 +48,8 @@ export const AddProduct =  async(ProductId: string, SupplierId: string) : Promis
       };
         try{
                 var supplierProduct = new SupplierProductDtos();
-                supplierProduct.SupplierId = SupplierId;
-                supplierProduct.ProductId = ProductId;
+                supplierProduct.supplierId = SupplierId;
+                supplierProduct.productId = ProductId;
                 var respons2 = await axiosInstance.post('SupplierProduct', supplierProduct)
                 resust.data = respons2.data.data;
                 resust.message = respons2.data.message;

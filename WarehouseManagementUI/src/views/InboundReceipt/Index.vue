@@ -3,7 +3,7 @@
     <el-select
       v-model="filterBy"
       clearable
-      placeholder="Select"
+      placeholder="Chọn"
       style="width: 90px"
     >
       <el-option
@@ -47,8 +47,8 @@
   </div>
   <el-table :data="tableData.data?.data" style="width: 100%">
     <el-table-column prop="supplierName" label="Nhà cung cấp" width="180" />
-    <el-table-column prop="warehouseName" label="Warehouse" width="180" />
-    <el-table-column prop="createdOn" label="CreateOn">
+    <el-table-column prop="warehouseName" label="Kho" width="180" />
+    <el-table-column prop="createdOn" label="Ngày tạo">
       <template #default="{ row }">
         {{
           new Date(row.createdOn).toLocaleDateString("vi-VN", {
@@ -59,13 +59,14 @@
         }}
       </template>
     </el-table-column>
-    <el-table-column fixed="right" label="Operations" width="120">
+    <el-table-column fixed="right" label="" width="120">
       <template #default="scope">
         <el-button
           type="primary"
           size="small"
           @click="Deatail(scope.row.id)"
-          >Detail</el-button
+          style="width: 56px"
+          >Chi tiết</el-button
         >
         <el-button
           type="danger"

@@ -31,7 +31,7 @@ const tableColumns: TableColumn[] = [
     },
     {
         key: "userName",
-        label: "User Name",
+        label: "Tài khoản",
         enableEdit: false,
         enableCreate: true,
         hidden: false,
@@ -73,7 +73,7 @@ const tableColumns: TableColumn[] = [
     },
     {
         key: "role",
-        label: "Role",
+        label: "Vai trò",
         enableEdit: false,
         enableCreate: true,
         hidden: false,

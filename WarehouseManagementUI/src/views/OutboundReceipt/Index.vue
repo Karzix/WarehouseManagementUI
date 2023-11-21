@@ -3,7 +3,7 @@
       <el-select
         v-model="filterBy"
         clearable
-        placeholder="Select"
+        placeholder="Chọn"
         style="width: 90px"
       >
         <el-option
@@ -88,8 +88,6 @@
         :current-page="searchRequest.PageIndex"
         class="mt-4"
       />
-      Found {{ totalItem }} results. Page {{ searchRequest.PageIndex }} of total
-      {{ totalPages }} pages
     </div>
   </template>
   <script setup lang="ts">

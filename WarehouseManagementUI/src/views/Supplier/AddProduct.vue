@@ -10,7 +10,7 @@
           type="primary"
           size="small"
           @click="addProduct(scope.row.id)"
-          >Add</el-button
+          >Thêm</el-button
         >
         <!-- <el-button link type="primary" size="small">Edit</el-button> -->
       </template>
@@ -85,8 +85,8 @@ const previousPage = () => {
 
 async function addProduct(productId: string) {
   try {
-    const supplierId = params.Id;
-    var result = await AddProduct(productId, String(supplierId));
+    const supplierId = Number(params.Id);
+    var result = await AddProduct(Number(productId), supplierId);
     console.log(result);
     
   } catch (ex) {
