@@ -62,12 +62,18 @@
       <el-table-column fixed="right" label="" width="120">
         <template #default="scope">
           <el-button
-            link
             type="primary"
             size="small"
             @click="Deatail(scope.row.id)"
             >Chi tiết</el-button
           >
+          <el-button
+          type="danger"
+          size="small"
+          style="width: 63px"
+          @click="Delete(scope.row.id)"
+          >Xóa</el-button
+        >
         </template>
       </el-table-column>
     </el-table>
@@ -254,10 +260,42 @@
   function handleCreate(){
   router.push("/OutboundReceipt/Create");
 }
+async function Delete(Id: any) {
+  let result: AppResponse<SearchResponse<InboundReceiptDtos>> = {
+    isSuccess: false,
+    message: "",
+    data: {
+      data: undefined,
+      totalPages: undefined,
+      rowsPerPage: undefined,
+      totalRows: undefined,
+      currentPage: undefined,
+    },
+  };
+  try {
+    await axiosInstance
+      .delete("OutboundReceipt/" + Id.toString())
+      .then((listProduct) => {
+        result.data = listProduct.data.data;
+        result.isSuccess = listProduct.data.isSuccess;
+      });
+      if(!result.isSuccess){
+        console.log(result.message);
+      }
+      else{
+        alert("Delete success");
+      }
+  } catch (ex) {
+    console.error(ex);
+  }
+}
   </script>
   <style scoped>
   .Date {
     display: flex;
     gap: 10px;
   }
+  .el-button+.el-button {
+    margin-left: 0;
+}
   </style>

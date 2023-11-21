@@ -13,7 +13,7 @@
                   <el-icon>
                     <House />
                   </el-icon>
-                  Home
+                  Trang chủ
                 </el-menu-item>
               </router-link>
               <router-link to="/Supplier" class="layout1-link">
@@ -21,7 +21,7 @@
                   <el-icon>
                     <Shop />
                   </el-icon>
-                  <span>Supplier</span>
+                  <span>Nhà cung cấp</span>
                 </el-menu-item>
               </router-link>
               <router-link to="/Product" class="layout1-link">
@@ -29,7 +29,7 @@
                   <el-icon>
                     <Goods />
                   </el-icon>
-                  <span>Product</span>
+                  <span>Sản phẩm</span>
                 </el-menu-item>
               </router-link>
               <router-link to="/User" class="layout1-link">
@@ -37,7 +37,7 @@
                   <el-icon>
                     <User />
                   </el-icon>
-                  <span>User</span>
+                  <span>Người dùng</span>
                 </el-menu-item>
               </router-link>
               <router-link to="/InboundReceipt" class="layout1-link">
@@ -45,7 +45,7 @@
                   <el-icon>
                     <Back />
                   </el-icon>
-                  <span>Inbound Receipt</span>
+                  <span>Nhập kho</span>
                 </el-menu-item>
               </router-link>
               <router-link to="/OutboundReceipt" class="layout1-link">
@@ -53,7 +53,7 @@
                   <el-icon>
                     <Right />
                   </el-icon>
-                  <span>Outbound Receipt</span>
+                  <span>Xuất kho</span>
                 </el-menu-item>
               </router-link>
               <router-link to="/Warehouse" class="layout1-link">
@@ -61,7 +61,7 @@
                   <el-icon>
                     <House />
                   </el-icon>
-                  <span>Warehouse</span>
+                  <span>Kho</span>
                 </el-menu-item>
               </router-link>
             </el-menu>

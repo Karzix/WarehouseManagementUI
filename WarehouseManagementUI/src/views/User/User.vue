@@ -16,6 +16,20 @@ import {
 } from '@element-plus/icons-vue';
 const tableColumns: TableColumn[] = [
     {
+        key: "id",
+        label: "Id",
+        enableEdit: false,
+        enableCreate: false,
+        hidden: true,
+        width: 500,
+        required: false,
+        sortable: false,
+        showSearch: false,
+        inputType: "text",
+        dropdownData: null,
+
+    },
+    {
         key: "userName",
         label: "User Name",
         enableEdit: false,
@@ -30,9 +44,37 @@ const tableColumns: TableColumn[] = [
 
     },
     {
+        key: "email",
+        label: "Email",
+        enableEdit: false,
+        enableCreate: true,
+        hidden: false,
+        width: 500,
+        required: true,
+        sortable: true,
+        showSearch: false,
+        inputType: "text",
+        dropdownData: null,
+
+    },
+    {
+        key: "password",
+        label: "Password",
+        enableEdit: false,
+        enableCreate: true,
+        hidden: true,
+        width: 500,
+        required: true,
+        sortable: true,
+        showSearch: false,
+        inputType: "text",
+        dropdownData: null,
+
+    },
+    {
         key: "role",
         label: "Role",
-        enableEdit: true,
+        enableEdit: false,
         enableCreate: true,
         hidden: false,
         width: 300,
@@ -50,8 +92,8 @@ const tableColumns: TableColumn[] = [
                 },
                 {
 
-                    role: "TenantAdmin",
-                    roleName: "Personal"
+                    role: "User",
+                    roleName: "User"
                 }
             ]
 

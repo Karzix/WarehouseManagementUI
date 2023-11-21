@@ -62,17 +62,16 @@
     <el-table-column fixed="right" label="Operations" width="120">
       <template #default="scope">
         <el-button
-          link
           type="primary"
           size="small"
           @click="Deatail(scope.row.id)"
           >Detail</el-button
         >
         <el-button
-          link
-          type="primary"
+          type="danger"
           size="small"
           @click="Delete(scope.row.id)"
+          style="width: 56px"
           >Xóa</el-button
         >
       </template>
@@ -272,5 +271,8 @@ function handleCreate(){
 .Date {
   display: flex;
   gap: 10px;
+}
+.el-button+.el-button {
+    margin-left: 0;
 }
 </style>
