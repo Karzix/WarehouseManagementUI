@@ -8,8 +8,8 @@ import type { SupplierProductDtos } from "@/Models/Dtos/SupplierProductDtos";
 import router from "@/router";
 import type { ProductDtos } from "@/Models/Dtos/ProductDtos";
 
-export async function SearchSupplierProduct(Search: SearchRequest): Promise<AppResponse<SearchResponse<ProductDtos>>> {
-  let result: AppResponse<SearchResponse<ProductDtos>> = {
+export async function SearchSupplierProduct(Search: SearchRequest): Promise<AppResponse<SearchResponse<SupplierProductDtos>>> {
+  let result: AppResponse<SearchResponse<SupplierProductDtos>> = {
     isSuccess: false,
     message: "",
     data: {

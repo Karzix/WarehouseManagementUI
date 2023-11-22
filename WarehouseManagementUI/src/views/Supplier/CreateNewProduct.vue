@@ -29,6 +29,6 @@ var Product = reactive<ProductDtos>({
 });
 async function submitForm() {
 
-    CreateNewProduct(Product, String(params.Id));
+    CreateNewProduct(Product, Number(params.Id));
 }
 </script>
