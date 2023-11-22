@@ -244,7 +244,7 @@ const addImportProduct = (idProduct: number, quantity: number) => {
   )[0].name;
   importProduct.productId = Number(idProduct);
   importProduct.productName = listSupplierProductRef.value.filter(
-    (x) => x.id == Number(idProduct)
+    (x) => x.productId == Number(idProduct)
   )[0].productName;
   importProduct.quantity = quantity;
   inboundReceipt.listImportProductDto?.push(importProduct);
@@ -252,7 +252,7 @@ const addImportProduct = (idProduct: number, quantity: number) => {
   AddProduct.value = false;
 };
 function RemoveImportProduct(idProduct: number) {
-  inboundReceipt.listImportProductDto?.splice(idProduct);
+  inboundReceipt.listImportProductDto?.splice(idProduct, 1);
 }
 //lấy dữ liệu từ DB rồi cho vào một biến lưu trữ, khi nào cần thì thì đem ra dùng
 SearchWarehouse(GetListModels).then((resule) => {
