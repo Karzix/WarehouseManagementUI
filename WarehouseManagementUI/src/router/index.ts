@@ -19,7 +19,10 @@ import CreateInboundReceipt from "../views/InboundReceipt/Create.vue";
 import InboundReceiptDeatail from "../views/InboundReceipt/Deatail.vue";
 import OutboundReceipt from "../views/OutboundReceipt/Index.vue";
 import OutboundReceiptDeatail from "../views/OutboundReceipt/Deatail.vue";
+//@ts-ignore
 import ProductRemainming from '../views/ProductRemainming/Index.vue';
+//@ts-ignore
+import Page403 from '../views/error403.vue';
 import Cookies from "js-cookie";
 import * as jwt from "jsonwebtoken";
 const router = createRouter({
@@ -36,6 +39,10 @@ const router = createRouter({
         },
         // Other routes using default layout...
       ],
+    },
+    {
+      path: "/403",
+      component: Page403,
     },
     {
       path: "/Login",
