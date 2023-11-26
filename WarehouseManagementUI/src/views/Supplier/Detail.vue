@@ -6,8 +6,8 @@
   <router-link :to="`Edit/${useRoute().params.Id}/AddProduct`"><el-button type="primary">Thêm sản phẩm</el-button></router-link>
   <router-link :to="`Edit/${useRoute().params.Id}/CreateNewProduct`"><el-button type="primary">Tạo một sản phẩm mới</el-button></router-link>
   <el-table :data="tableData.data?.data" style="width: 100%">
-    <el-table-column prop="id" label="id" width="280px" />
-    <el-table-column prop="productName" label="product Name" width="280px" />
+    <el-table-column prop="productId" label="id sản phẩm" width="280px" />
+    <el-table-column prop="productName" label="Tên sản phẩm" width="280px" />
     <el-table-column fixed="right" label="" width="120">
         <template #default="scope">
           <el-button
