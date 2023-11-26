@@ -291,7 +291,7 @@ const state = reactive<LoginViewModel>({
 });
 const submitForm = async () => {
   console.log(state);
-  state.Email = state.UserName
+  state.email = state.userName
   const loginResult = await handleLogin(state);
   console.log("logresult:" + loginResult);
   if (loginResult.isSuccess)

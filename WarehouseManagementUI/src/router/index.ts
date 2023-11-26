@@ -21,7 +21,7 @@ import OutboundReceipt from "../views/OutboundReceipt/Index.vue";
 import OutboundReceiptDeatail from "../views/OutboundReceipt/Deatail.vue";
 import ProductRemainming from '../views/ProductRemainming/Index.vue';
 import Cookies from "js-cookie";
-
+import * as jwt from "jsonwebtoken";
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -69,6 +69,7 @@ const router = createRouter({
         {
           path: "",
           component: UserView,
+          meta: { requiresAuth: true, roles: ["Admin", "superadmin"] },
         },
         // Other routes using default layout...
       ],
@@ -81,6 +82,7 @@ const router = createRouter({
         {
           path: "",
           component: ProductVue,
+          meta: { requiresAuth: true, roles: ["Admin", "superadmin"] },
         },
       ],
     },
@@ -92,26 +94,32 @@ const router = createRouter({
         {
           path: "",
           component: Supplier,
+          meta: { requiresAuth: true, roles: ["Admin", "superadmin"] },
         },
         {
           path: "Create",
           component: CreateSupplier,
+          meta: { requiresAuth: true, roles: ["Admin", "superadmin"] },
         },
         {
           path: ":Id",
           component: SupplierProductDetail,
+          meta: { requiresAuth: true, roles: ["Admin", "superadmin"] },
         },
         {
           path: "Edit/:Id",
           component: EditSupplier,
+          meta: { requiresAuth: true, roles: ["Admin", "superadmin"] },
         },
         {
           path: "Edit/:Id/AddProduct",
           component: AddProductForSupplier,
+          meta: { requiresAuth: true, roles: ["Admin", "superadmin"] },
         },
         {
           path: "Edit/:Id/CreateNewProduct",
           component: CreateNewProductForSupplier,
+          meta: { requiresAuth: true, roles: ["Admin", "superadmin"] },
         },
       ],
     },
@@ -172,11 +180,39 @@ const router = createRouter({
 });
 router.beforeEach((to, from, next) => {
   const isAuthenticated = !!Cookies.get("accessToken");
+  const userRoles: string[] = getRolesFromToken(Cookies.get('accessToken')?.toString() || '') ??[];
 
   if (to.meta.requiresAuth && !isAuthenticated && to.path !== "/login") {
     next({ path: "/login" });
-  } else {
+  } 
+  else if(to.meta.roles && !hasPermission(userRoles, to.meta.roles as string[])){
+    next({ path: "/403" });
+  }
+  else {
     next(); // Continue to the requested route
   }
 });
+
+function hasPermission(userRoles: string[], requiredRoles: string[]): boolean {
+  for (const requiredRole of requiredRoles) {
+    if (userRoles.includes(requiredRole)) {
+      return true;
+    }
+  }
+  return false;
+}
+function getRolesFromToken(token: string): string[] | null {
+  try {
+    var token = Cookies.get('accessToken')?.toString() ?? "";
+    const decodedToken = jwt.decode(token ?? '') as TokenPayload;
+    console.log(decodedToken);
+    return decodedToken.Roles || [];
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+}
+interface TokenPayload {
+  [x: string]: never[];
+}
 export default router;
