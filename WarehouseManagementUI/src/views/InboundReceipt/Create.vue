@@ -272,7 +272,7 @@ async function searchProduct() {
       Value: String(Supplier.value),
       Operation: "search",
     };
-    GetListModels.Filters?.push(filter);
+    FindFilter("SupplierId", String(Supplier.value));
     await SearchSupplierProduct(GetListModels).then((resule) => {
       listSupplierProduct = resule;
       listSupplierProductRef.value = listSupplierProduct.data?.data ?? [];
@@ -283,7 +283,30 @@ async function searchProduct() {
 }
 //theo dõi nếu supplier thay đổi thì sẽ tìm product theo supplier
 watch(Supplier, searchProduct);
-
+function FindFilter(FieldName: string, value: string) {
+  var j = -1;
+  for (var i = 0; i < (GetListModels.Filters ?? []).length; i++) {
+    if ((GetListModels.Filters ?? [])[i].FieldName == FieldName) {
+      (GetListModels.Filters ?? [])[i].Value = value;
+      j = i;
+      break;
+    }
+  }
+  if (j == -1) {
+    GetListModels.Filters = [
+      {
+        FieldName: "IsDelete",
+        Value: "",
+        Operation: undefined,
+      },
+    ];
+    GetListModels.Filters?.push({
+      FieldName: FieldName,
+      Value: value,
+      Operation: undefined,
+    });
+  }
+}
 const Add = () => {
   AddProduct.value = true;
 };

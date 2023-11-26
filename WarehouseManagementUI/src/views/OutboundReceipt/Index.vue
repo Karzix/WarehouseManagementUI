@@ -216,7 +216,7 @@
   function DownloadExcel() {
     var data;
     axiosInstance
-      .post("InboundReceipt/Download", searchRequest, {
+      .post("OutboundReceipt/Download", searchRequest, {
         responseType: "blob",
       })
       .then((response) => {
@@ -228,7 +228,7 @@
   
         // Tải file về máy
         const filename =
-          "InboundReceipt" + new Date().toLocaleDateString("vi-GB") + ".xlsx";
+          "OutboundReceipt" + new Date().toLocaleDateString("vi-GB") + ".xlsx";
         const link = document.createElement("a");
         link.href = window.URL.createObjectURL(blob);
         link.download = filename;

@@ -7,7 +7,6 @@
       <p style="margin: 0;">Kho:</p>
       <el-select
         v-model="Warehouse"
-        clearable
         filterable
         :reserve-keyword="false"
         placeholder="Tên kho"
@@ -19,6 +18,7 @@
           :key="item.id"
           :label="item.name"
           :value="item.id"
+          :disabled="(OutboundReceipt.listExportProductDtos?.length)"
         />
       </el-select>
     </div>
@@ -171,12 +171,36 @@ async function searchProduct() {
       Value: String(Warehouse.value),
       Operation: "search",
     };
-    GetListModels.Filters?.push(filter);
+    FindFilter("WarehouseId", String(Warehouse.value));
     await SearchProductRemainming(GetListModels).then((resule) => {
       listProductRemainming = resule;
       listProductRemainmingRef.value = listProductRemainming.data?.data ?? [];
       console.log(listProductRemainmingRef.value);
       console.log(listProductRemainming.data);
+    });
+  }
+}
+function FindFilter(FieldName: string, value: string) {
+  var j = -1;
+  for (var i = 0; i < (GetListModels.Filters ?? []).length; i++) {
+    if ((GetListModels.Filters ?? [])[i].FieldName == FieldName) {
+      (GetListModels.Filters ?? [])[i].Value = value;
+      j = i;
+      break;
+    }
+  }
+  if (j == -1) {
+    GetListModels.Filters = [
+      {
+        FieldName: "IsDelete",
+        Value: "",
+        Operation: undefined,
+      },
+    ];
+    GetListModels.Filters?.push({
+      FieldName: FieldName,
+      Value: value,
+      Operation: undefined,
     });
   }
 }
