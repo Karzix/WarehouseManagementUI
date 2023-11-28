@@ -74,9 +74,9 @@
           </el-col>
         </el-row>
       </el-aside>
-      <el-container style="background-color: #deedd1;">
+      <el-container style="background-color: #deedd1;" class="container2">
         <el-header>
-          <h4>Warehouse Management</h4>
+          <h4 style="text-align: center; width: 100%;">Quản lý kho hàng</h4>
         </el-header>
         <el-main class="el-main-view container flex-column justify-content-around">
           <router-view></router-view>
@@ -177,5 +177,8 @@ function deleteCookie() {
 }
 .side-bar{
   width: 230px;
+}
+.container2{
+  background-image: url("../../assets/z4880236201107_475a67997f8869951ed3b062f70149f2.jpg");
 }
 </style>

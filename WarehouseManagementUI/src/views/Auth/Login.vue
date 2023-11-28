@@ -26,9 +26,14 @@
               <input type="password" name="password" placeholder="Enter password" v-model="state.password"
                 @keydown.enter="submitForm" />
             </div>
-            <div class="row px-5 mb-4">
-              <a href="#" class="ml-auto mb-0 text-sm p-0">Forgot Password?</a>
+            <div class="row px-5">
+              <label class="p-0 mb-2">
+                <h6 class="text-sm" style="color: red;">{{message}}</h6>
+              </label>
             </div>
+            <!-- <div class="row px-5 mb-4">
+              <a href="#" class="ml-auto mb-0 text-sm p-0">Forgot Password?</a>
+            </div> -->
             <div class="row mb-3 px-5 d-flex justify-content-center">
               <button type="submit" class="btn btn-blue text-center" @click="submitForm">
                 Login
@@ -276,11 +281,9 @@ import {
   UserFilled
 } from '@element-plus/icons-vue';
 import { LoginViewModel } from '../../Models/LoginViewModel'
-
-
 import { handleLogin } from "../../Service/LoginService"
 import { useToast } from "vue-toastification";
-
+const message = ref<string>('');
 const _toast = useToast();
 const state = reactive<LoginViewModel>({
   userName: '',
@@ -295,9 +298,12 @@ const submitForm = async () => {
   const loginResult = await handleLogin(state);
   console.log("logresult:" + loginResult);
   if (loginResult.isSuccess)
-  window.location.href = '/';
+    window.location.href = '/';
   else
-   _toast.success(loginResult.message);
+   {
+    _toast.success(loginResult.message);
+    message.value = loginResult.message;
+  }
 }
 
 </script>
