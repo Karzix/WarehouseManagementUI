@@ -7,7 +7,7 @@
       <el-input v-model="SupplierRef.email" type="email" />
     </el-form-item>
     <el-form-item>
-      <el-button type="primary" @click="Save()">Save</el-button>
+      <el-button type="primary" @click="Save()">Lưu</el-button>
     </el-form-item>
   </el-form>
 </template>

@@ -5,7 +5,7 @@
       type="primary"
       style="margin: 0"
       :disabled="!(Supplier && Warehouse)"
-      >Add Product</el-button
+      >Thêm Sản Phẩm</el-button
     >
     <div class="m-4 input-Select">
       <p>Kho:</p>
@@ -52,21 +52,21 @@
       type="primary"
       style="margin: 0"
       :disabled="(inboundReceipt.listImportProductDto ?? []).length == 0"
-      >Save</el-button
+      >Lưu</el-button
     >
   </div>
 
   <el-table :data="inboundReceipt.listImportProductDto" style="width: 100%">
-    <el-table-column prop="supplierName" label="Supplier" width="180" />
-    <el-table-column prop="productName" label="Warehouse" width="180" />
-    <el-table-column prop="quantity" label="Quantity" />
+    <el-table-column prop="supplierName" label="Nhà Cung Cấp" width="180" />
+    <el-table-column prop="productName" label="Kho" width="180" />
+    <el-table-column prop="quantity" label="Số Lượng" />
     <el-table-column fixed="right" label="" width="100px">
       <template #default="scope">
         <el-button
           type="primary"
           size="small"
           @click="RemoveImportProduct(Number(scope.$index))"
-          >Delete</el-button
+          >Xóa</el-button
         >
       </template>
     </el-table-column>

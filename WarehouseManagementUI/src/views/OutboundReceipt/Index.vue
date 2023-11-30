@@ -40,7 +40,7 @@
         v-if="filterBy"
         style="margin: 0"
         @click="SeachDate()"
-        >Search</el-button
+        >Tìm Kiếm</el-button
       >
       <el-button @click="handleCreate()" type="primary">Thêm</el-button>
       <el-button :icon="Download" @click="DownloadExcel()">In</el-button>

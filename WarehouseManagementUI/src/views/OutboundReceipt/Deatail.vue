@@ -1,6 +1,6 @@
 <template>
   <el-table :data="tableData.data?.data" border style="width: 100%">
-    <el-table-column prop="id" label="id" width="180" />
+    <el-table-column prop="id" label="Id" width="180" />
     <el-table-column prop="productName" label="Tên sản phẩm" width="180" />
     <el-table-column prop="supplierName" label="Nhà cung cấp" />
     <el-table-column prop="quantity" label="Số lượng" />

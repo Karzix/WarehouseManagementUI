@@ -1,6 +1,7 @@
 <template>
   <el-row>
     Tên: {{ supplier.name }}
+    <br>
     Email: {{ supplier.email }}
   </el-row>
   <router-link :to="`Edit/${useRoute().params.Id}/AddProduct`"><el-button type="primary">Thêm sản phẩm</el-button></router-link>

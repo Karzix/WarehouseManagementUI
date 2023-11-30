@@ -1,6 +1,6 @@
 <template>
   <Suspense>
-    <BasicAdminFormVue :tableColumns="tableColumns" :apiName="'Product'" :allowAdd="true" :allowDelete="true" title="User"
+    <BasicAdminFormVue :tableColumns="tableColumns" :apiName="'Product'" :allowAdd="true" :allowDelete="true" title="Sản Phẩm"
             :CustomActions="CustomActions" :allowEdit="true"></BasicAdminFormVue>
   </Suspense>
 </template>

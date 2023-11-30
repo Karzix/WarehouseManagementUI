@@ -1,6 +1,6 @@
 <template>
     <div>
-        <img style="width: 100%; height: 77vh;" src="https://www.optiproerp.com/wp-content/uploads/Warehouse-Management-System-1.png">
+        <img style="width: 100%; height: 77vh;" src="https://gosmartlog.com/wp-content/uploads/2019/12/inventory-control.png">
 
     </div>
 </template>

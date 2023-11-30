@@ -14,16 +14,16 @@
 
             <div class="row px-5">
               <label class="p-0 mb-2">
-                <h6 class="text-sm">User Name</h6>
+                <h6 class="text-sm">Nhập tên đăng nhập</h6>
               </label>
-              <input class="mb-4" type="text" name="email" placeholder="Enter a valid user name" v-model="state.userName"
+              <input class="mb-4" type="text" name="email" placeholder="Nhập tên đăng nhập" v-model="state.userName"
                 @keydown.enter="submitForm" />
             </div>
             <div class="row px-5">
               <label class="p-0 mb-2">
-                <h6 class="text-sm">Password</h6>
+                <h6 class="text-sm">Mật Khẩu</h6>
               </label>
-              <input type="password" name="password" placeholder="Enter password" v-model="state.password"
+              <input type="password" name="password" placeholder=" Nhập mật khẩu" v-model="state.password"
                 @keydown.enter="submitForm" />
             </div>
             <div class="row px-5">
@@ -36,13 +36,13 @@
             </div> -->
             <div class="row mb-3 px-5 d-flex justify-content-center">
               <button type="submit" class="btn btn-blue text-center" @click="submitForm">
-                Login
+                Đăng Nhập
               </button>
             </div>
             <div class="row mb-4 px-5 d-flex justify-content-center">
-              <small class="fw-bold p-0">Don't have an account?
+              <small class="fw-bold p-0">Bạn đã có tài khoản ?
                 <a class="text-danger">
-                  <router-link to="/register">Register</router-link>
+                  <router-link to="/register">Đăng Kí</router-link>
                 </a></small>
             </div>
           </div>

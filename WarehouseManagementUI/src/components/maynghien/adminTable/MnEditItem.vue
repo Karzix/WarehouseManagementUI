@@ -23,9 +23,9 @@
         </div>
         <template #footer>
             <span class="dialog-footer">
-                <el-button @click="emit('onCloseClicked')">Cancel</el-button>
+                <el-button @click="emit('onCloseClicked')">Hủy Bỏ</el-button>
                 <el-button type="primary" @click="Save">
-                    Confirm
+                    Xác Nhận 
                 </el-button>
             </span>
         </template>

@@ -74,7 +74,7 @@
           </el-col>
         </el-row>
       </el-aside>
-      <el-container style="background-color: #deedd1;" class="container2">
+      <el-container style="background-color: rgb(15, 15, 66);" class="container2">
         <el-header>
           <h4 style="text-align: center; width: 100%;">Quản lý kho hàng</h4>
         </el-header>
@@ -134,11 +134,24 @@ function deleteCookie() {
 }
 </script>
 <style scoped>
+h4
+{
+  color: aliceblue;
+  font-family: Segoe UI Black ;
+  font-size: 50px;
+  font-weight: 50px;
+ 
+}
+.el-main
+{
+  background-image: url('https://img.freepik.com/free-vector/gradient-connection-background_23-2150490691.jpg?w=1060&t=st=1701350098~exp=1701350698~hmac=aa87d72815acfadbfd17da1df9bd972e615fa9f0f9afffe7b890d3e908b9bca4');
+}
 .el-footer {
   display: flex;
   justify-content: end;
   align-items: center;
   font-size: large;
+  color: aliceblue;
 }
 .el-header {
   display: flex;

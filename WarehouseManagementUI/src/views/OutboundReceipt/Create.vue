@@ -1,7 +1,7 @@
 <template>
   <div class="General-Information">
     <el-button @click="()=>{AddProduct = true}" type="primary" style="margin: 0" :disabled="!Warehouse"
-      >Add Product</el-button
+      >Thêm Sản Phẩm</el-button
     >
     <div class="m-4 input-Select">
       <p style="margin: 0;">Kho:</p>
@@ -27,7 +27,7 @@
       type="primary"
       style="margin: 0"
       :disabled="(OutboundReceipt.listExportProductDtos?.length == 0 || To.value == '')"
-      >Save</el-button
+      >Lưu</el-button
     >
   </div>
   <el-input
@@ -37,16 +37,16 @@
     placeholder="Nơi đến"
   />
   <el-table :data="OutboundReceipt.listExportProductDtos" style="width: 100%">
-    <el-table-column prop="supplierName" label="Supplier" width="180" />
-    <el-table-column prop="productName" label="Warehouse" width="180" />
-    <el-table-column prop="quantity" label="Quantity" />
+    <el-table-column prop="supplierName" label="Nhà Cung Cấp" width="180" />
+    <el-table-column prop="productName" label="Kho" width="180" />
+    <el-table-column prop="quantity" label="Số Lượng" />
     <el-table-column fixed="right" label="" width="100px">
       <template #default="scope">
         <el-button
           type="primary"
           size="small"
           @click="RemoveExportProduct(scope.$index)"
-          >Delete</el-button
+          >Xóa</el-button
         >
       </template>
     </el-table-column>
@@ -80,7 +80,7 @@
               type="primary"
               size="small"
               @click="addExportProduct(scope.row.productId,scope.row.supplierId, Number(QuantityProdcut[scope.$index]))"
-              >Add</el-button
+              >Thêm</el-button
             >
             <el-input type="number" v-model="QuantityProdcut[scope.$index]" min="1" :max="scope.row.quantity"/>
           </template>

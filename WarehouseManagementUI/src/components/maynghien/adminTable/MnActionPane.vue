@@ -18,7 +18,7 @@
                             </el-select>
                         </div>
                         <el-button v-if="filters != undefined && filters.length > 0" :icon="Search"
-                            @click="handlebtnSearchClicked">Tìm</el-button>
+                            @click="handlebtnSearchClicked">Tìm Kiếm</el-button>
 
                     </el-row>
 

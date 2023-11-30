@@ -1,6 +1,6 @@
 <template>
   <el-table :data="Data.data?.data" style="width: 100%">
-    <el-table-column prop="id" label="id" width="280px" />
+    <el-table-column prop="id" label="Id" width="280px" />
     <el-table-column prop="name" label="Name" width="280px" />
     <el-table-column prop="description" label="Description" width="280px" />
     <el-table-column fixed="right" label="Operations" width="100px">
