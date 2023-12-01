@@ -144,7 +144,9 @@ h4
 }
 .el-main
 {
-  background-image: url('https://img.freepik.com/free-vector/gradient-connection-background_23-2150490691.jpg?w=1060&t=st=1701350098~exp=1701350698~hmac=aa87d72815acfadbfd17da1df9bd972e615fa9f0f9afffe7b890d3e908b9bca4');
+  background-image: url('../../assets/img/d904bfedaf47466b73e3ee87e6e431de.jpg');
+  background-repeat:  no-repeat;
+  background-size: cover;
 }
 .el-footer {
   display: flex;
