@@ -155,11 +155,11 @@ function SeachDate() {
   var FieldName = filterBy.value;
   var value = "";
   if (filterBy.value === "Day") {
-    value = Day.value;
+    value = new Date(Day.value).toLocaleDateString('en-GB');
   } else if (filterBy.value === "Month") {
-    value = Month.value;
+    value = new Date(Month.value).toLocaleDateString('en-GB');
   } else if (filterBy.value === "Year") {
-    value = Year.value;
+    value = new Date(Year.value).toLocaleDateString('en-GB');
   }
   console.log(value);
   FindFilter(FieldName, value);

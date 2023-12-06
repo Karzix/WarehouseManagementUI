@@ -8,7 +8,7 @@
       >Thêm Sản Phẩm</el-button
     >
     <div class="m-4 input-Select">
-      <p>Kho:</p>
+      <p style="color: white;">Kho:</p>
       <el-select
         v-model="Warehouse"
         clearable
@@ -28,7 +28,7 @@
       </el-select>
     </div>
     <div class="m-4 input-Select">
-      <p>Nhà cung cấp:</p>
+      <p style="color: white;">Nhà cung cấp:</p>
       <el-select
         v-model="Supplier"
         clearable
@@ -315,21 +315,6 @@ const createInboundReceipt = async () => {
   inboundReceipt.supplierId = Number(Supplier.value);
   inboundReceipt.warehouseId = Number(Warehouse.value);
   await CreateInboundReceipt(inboundReceipt);
-  inboundReceipt.listImportProductDto?.forEach((item) => {
-    const productRemaining: ProductRemainingDtos = {
-      id: undefined,
-      quantity: item.quantity,
-      productId: item.productId,
-      productName: item.productName,
-      warehouseId: Number(Warehouse.value),
-      warehouseName: "",
-      supplierId: Number(Supplier.value),
-      supplierName: "",
-    };
-    UpdateProductRemainming(productRemaining).then((resule) => {
-      console.log(resule.data);
-    })
-  })
 };
 //cách hoạt động
 /*

@@ -80,7 +80,7 @@ const tableColumns: TableColumn[] = [
         width: 300,
         required: true,
         sortable: true,
-        showSearch: true,
+        showSearch: false,
         inputType: "dropdown",
         dropdownData: {
             displayMember: "roleName",

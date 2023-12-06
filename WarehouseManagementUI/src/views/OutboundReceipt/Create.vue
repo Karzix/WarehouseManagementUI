@@ -4,7 +4,7 @@
       >Thêm Sản Phẩm</el-button
     >
     <div class="m-4 input-Select">
-      <p style="margin: 0;">Kho:</p>
+      <p style="margin: 0; color: white">Kho:</p>
       <el-select
         v-model="Warehouse"
         filterable
@@ -236,9 +236,17 @@ function createOutboundReceipt() {
   });
 }
 function addExportProduct(productId : number,supplierId : number, quantity : number) {
+  var productRemainming =listProductRemainmingRef.value.filter(
+    (x) => x.productId == productId && x.supplierId == supplierId 
+  )[0];
   var exportProduct = new ExportProductDtos();
   exportProduct.productId = productId;
-  exportProduct.quantity = quantity;
+  if(quantity > productRemainming.quantity){
+    exportProduct.quantity = productRemainming.quantity;
+  }
+  else{
+    exportProduct.quantity = quantity;
+  }
   exportProduct.supplierId = supplierId;
   exportProduct.supplierName = listProductRemainmingRef.value.filter(
     (x) => x.supplierId == supplierId
