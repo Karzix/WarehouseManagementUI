@@ -1,6 +1,7 @@
 import type { AppResponse } from "@/Models/AppResponse";
 import type { OutboundReceiptDtos } from "@/Models/Dtos/OutboundReceiptDtos";
 import { axiosInstance } from "../axiosConfig";
+import router from "@/router";
 
 
 export const CreateOutboundReceipt = async (model: OutboundReceiptDtos): Promise<AppResponse<OutboundReceiptDtos>> => {
@@ -17,9 +18,9 @@ export const CreateOutboundReceipt = async (model: OutboundReceiptDtos): Promise
         result.message = respons.data.message;
         result.isSuccess = respons.data.isSuccess;
         if (result.isSuccess) {
-            alert("done");
+            router.push('/OutboundReceipt');
         } else {
-            alert(result.message);
+            console.error(result.message);
         }
     } catch (ex) {
         console.error(ex);
